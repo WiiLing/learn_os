@@ -1,0 +1,17 @@
+     1 00000000                                 ;a_nask
+     2 00000000                                 ;TAB=4
+     3 00000000                                 
+     4 00000000                                 [FORMAT "WCOFF"]
+     5 00000000                                 [INSTRSET "i486p"]
+     6 00000000                                 [BITS 32]
+     7 00000000                                 [FILE "a_nask.nas"]
+     8 00000000                                 
+     9 00000000                                 		GLOBAL 	_api_putchar
+    10 00000000                                 
+    11                                          [SECTION .text]
+    12 00000000                                 
+    13 00000000                                 _api_putchar: 								;void api_putchar(int c);
+    14 00000000 BA 00000001                     		MOV 	EDX, 1
+    15 00000005 8A 44 24 04                     		MOV 	AL, [ESP+4]
+    16 00000009 CD 40                           		INT 	0x40
+    17 0000000B C3                              		RET

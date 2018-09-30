@@ -1,0 +1,1487 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"TIMER_FL",
+				"TIMER_FLAGS_USING"
+			],
+			[
+				"ti",
+				"timers"
+			],
+			[
+				"time",
+				"timers"
+			],
+			[
+				"mous",
+				"mousedata0"
+			],
+			[
+				"fif",
+				"fifo"
+			],
+			[
+				"next",
+				"next_r"
+			],
+			[
+				"nex",
+				"next_r"
+			],
+			[
+				"col",
+				"COL8_008484"
+			],
+			[
+				"put",
+				"putfonts8_asc"
+			],
+			[
+				"tim",
+				"timer"
+			],
+			[
+				"TIMER",
+				"TIMER_FLAGS_ALLOC"
+			],
+			[
+				"timer",
+				"timerctl"
+			],
+			[
+				"COL",
+				"COL8_FFFFFF"
+			],
+			[
+				"scr",
+				"scrnx"
+			],
+			[
+				"timerfif",
+				"timerfifo2"
+			],
+			[
+				"timerfi",
+				"timerfifo3"
+			],
+			[
+				"timerbu",
+				"timerbuf3"
+			],
+			[
+				"timerbuf",
+				"timerbuf2"
+			],
+			[
+				"TIME",
+				"TIMER_FLAGS_ALLOC"
+			],
+			[
+				"fi",
+				"fifo8_get"
+			],
+			[
+				"GAS",
+				"GAS2NASK"
+			],
+			[
+				"Obj",
+				"OBJ2BIM"
+			],
+			[
+				"OBJ",
+				"OBJS_BOOTPACK"
+			],
+			[
+				"gas",
+				"gas2nask"
+			],
+			[
+				"in",
+				"INCPATH"
+			],
+			[
+				"memm",
+				"memman_alloc_4k"
+			],
+			[
+				"shee",
+				"sheet_refresh"
+			],
+			[
+				"cou",
+				"count"
+			],
+			[
+				"she",
+				"sheet_updown"
+			],
+			[
+				"bu",
+				"buf_win"
+			],
+			[
+				"col8",
+				"COL8_FFFFFF"
+			],
+			[
+				"sheet",
+				"sheet_refreshsub"
+			],
+			[
+				"ol",
+				"old_vy0"
+			],
+			[
+				"old",
+				"old_vx0"
+			],
+			[
+				"sc",
+				"scrnx"
+			],
+			[
+				"sh",
+				"shtctl"
+			],
+			[
+				"sht",
+				"shtctl"
+			],
+			[
+				"vy",
+				"vy0"
+			],
+			[
+				"memna",
+				"memman_total"
+			],
+			[
+				"los",
+				"lostsize"
+			],
+			[
+				"fre",
+				"frees"
+			],
+			[
+				"MAN",
+				"MEMMAN_FREES"
+			],
+			[
+				"free",
+				"frees"
+			],
+			[
+				"fr",
+				"frees"
+			],
+			[
+				"a",
+				"addr"
+			],
+			[
+				"lo",
+				"losts"
+			],
+			[
+				"MEMMAN",
+				"MEMMAN_FREES"
+			],
+			[
+				"mem",
+				"memtest"
+			],
+			[
+				"pat",
+				"pat1"
+			],
+			[
+				"pa",
+				"pat0"
+			],
+			[
+				"mou",
+				"mouse_rate"
+			],
+			[
+				"mo",
+				"mouse_rate"
+			],
+			[
+				"ms",
+				"mcursor"
+			],
+			[
+				"pu",
+				"putfonts8_asc"
+			],
+			[
+				"key",
+				"keyboard"
+			],
+			[
+				"ini",
+				"init_keyboard"
+			],
+			[
+				"PO",
+				"PORT_KEYSTA"
+			],
+			[
+				"def",
+				"define"
+			],
+			[
+				"s",
+				"size"
+			],
+			[
+				"inc",
+				"inc\t#include \"…\""
+			],
+			[
+				"set",
+				"set_gatedesc"
+			],
+			[
+				"off",
+				"offset"
+			],
+			[
+				"of",
+				"offset_high"
+			],
+			[
+				"base_",
+				"base_high"
+			],
+			[
+				"limi",
+				"limit_high"
+			],
+			[
+				"as",
+				"access_right"
+			],
+			[
+				"lim",
+				"limit_low"
+			],
+			[
+				"loa",
+				"load_idtr"
+			],
+			[
+				"init",
+				"init_gdtidt"
+			],
+			[
+				"co",
+				"COL8_C6C6C6"
+			],
+			[
+				"sta",
+				"static"
+			],
+			[
+				"o",
+				"obj"
+			],
+			[
+				"fon",
+				"font_A"
+			],
+			[
+				"x",
+				"xsize"
+			],
+			[
+				"y",
+				"ysize"
+			],
+			[
+				"BIN",
+				"BOOTINFO"
+			],
+			[
+				"bin",
+				"binfo_vram"
+			],
+			[
+				"col8_f",
+				"COL8_FF0000"
+			],
+			[
+				"io",
+				"io_store_eflags"
+			],
+			[
+				"asm",
+				"asmhead"
+			],
+			[
+				"na",
+				"nask"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "vvos/Makefile",
+			"settings":
+			{
+				"buffer_size": 2157,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/timer.c",
+			"settings":
+			{
+				"buffer_size": 1909,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/memory.c",
+			"settings":
+			{
+				"buffer_size": 2793,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/asmhead.nas",
+			"settings":
+			{
+				"buffer_size": 3263,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/naskfunc.nas",
+			"settings":
+			{
+				"buffer_size": 3020,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "vvos/int.c",
+			"settings":
+			{
+				"buffer_size": 659,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/keyboard.c",
+			"settings":
+			{
+				"buffer_size": 608,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/mouse.c",
+			"settings":
+			{
+				"buffer_size": 1462,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/sheet.c",
+			"settings":
+			{
+				"buffer_size": 7290,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 47 files for \"sheet_refresh\"\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.c:\n   61  \tsprintf(s, \"memory %dMB    free %dKB\", memtotal / (1024 * 1024), memman_total(memman) / 1024);\n   62  \tputfonts8_asc(buf_back, binfo->scrnx, 0, 32, COL8_FFFFFF, s);\n   63: \tsheet_refresh(shtctl);\n   64  \n   65  \t/*操作系统循环*/\n   ..\n   84  \t\t\t\tboxfill8(buf_back, binfo->scrnx, COL8_008484, 0, 16, 15, 31);\n   85  \t\t\t\tputfonts8_asc(buf_back, binfo->scrnx, 0, 16, COL8_FFFFFF, s);\n   86: \t\t\t\tsheet_refresh(shtctl);\n   87  \t\t\t}\n   88  \t\t\t/*处理鼠标信息*/\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.h:\n  178  struct SHEET *sheet_alloc(struct SHTCTL *ctl);\n  179  void sheet_setbuf(struct SHEET *sht, unsigned char *buf, int xsize, int ysize, int col_inv);\n  180: //void sheet_refresh(struct SHTCTL *ctl);\n  181: void sheet_refresh(struct SHTCTL *ctl, struct SHEET * sht, int bx0, int by0, int bx1, int by1);\n  182: void sheet_refreshsub(struct SHTCTL *ctl, int vx0, int vy0, int vx1, int vy1);\n  183  void sheet_slide(struct SHTCTL *ctl, struct SHEET *sht, int vx0, int vy0);\n  184  void sheet_updown(struct SHTCTL *ctl, struct SHEET *sht, int height);\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.lst:\n   28      28 00000000                                 \tEXTERN\t_putfonts8_asc\n   29      29 00000000                                 \tEXTERN\t_memman_total\n   30:     30 00000000                                 \tEXTERN\t_sheet_refresh\n   31      31 00000000                                 \tEXTERN\t_io_cli\n   32      32 00000000                                 \tEXTERN\t_fifo8_status\n   ..\n  217     213 00000278 E8 [00000000]                   \tCALL\t_putfonts8_asc\n  218     214 0000027D FF B5 FFFFFE10                  \tPUSH\tDWORD [-496+EBP]\n  219:    215 00000283 E8 [00000000]                   \tCALL\t_sheet_refresh\n  220     216 00000288 83 C4 1C                        \tADD\tESP,28\n  221     217 0000028B                                 L2:\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.map:\n   66  0x0000102A : _sheet_alloc\n   67  0x0000105D : _sheet_setbuf\n   68: 0x0000107C : _sheet_refresh\n   69: 0x0000111A : _sheet_refreshsub\n   70  0x000011E1 : _sheet_slide\n   71  0x00001239 : _sheet_updown\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.nas:\n   28  \tEXTERN\t_putfonts8_asc\n   29  \tEXTERN\t_memman_total\n   30: \tEXTERN\t_sheet_refresh\n   31  \tEXTERN\t_io_cli\n   32  \tEXTERN\t_fifo8_status\n   ..\n  213  \tCALL\t_putfonts8_asc\n  214  \tPUSH\tDWORD [-496+EBP]\n  215: \tCALL\t_sheet_refresh\n  216  \tADD\tESP,28\n  217  L2:\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\sheet.c:\n   48  }\n   49  \n   50: /*void sheet_refresh(struct SHTCTL *ctl)\n   51  {\n   52  \tint h, bx, by, vx, vy;\n   ..\n   74  }*/\n   75  \n   76: void sheet_refresh(struct SHTCTL *ctl, struct SHEET * sht, int bx0, int by0, int bx1, int by1)\n   77  {\n   78  \tif(sht->height >= 0)\n   79  \t{\n   80: \t\tsheet_refreshsub(ctl, sht->vx0 + bx0, sht->vy0 + by0, sht->vx0 + bx1, sht->vy0 + by1);\n   81  \t}\n   82  \treturn;\n   83  }\n   84  \n   85: void sheet_refreshsub(struct SHTCTL *ctl, int vx0, int vy0, int vx1, int vy1)\n   86  {\n   87  \tint h, bx, by, vx, vy;\n   ..\n  120  \tif(sht->height >= 0)\n  121  \t{\n  122: \t\t//sheet_refresh(ctl);\n  123: \t\tsheet_refreshsub(ctl, old_vx0, old_vy0, old_vx0 + sht->bxsize, old_vy0 + sht->bysize);\n  124: \t\tsheet_refreshsub(ctl, vx0, vy0, vx0 + sht->bxsize, vy0 + sht->bysize);\n  125  \t}\n  126  \treturn;\n  ...\n  172  \t\t\t--ctl->top;\n  173  \t\t}\n  174: \t\tsheet_refreshsub(ctl, sht->vx0, sht->vy0, sht->vx0 + sht->bxsize, sht->vy0 + sht->bysize);\n  175  \t}\n  176  \telse if(old < height)\n  ...\n  207  \t\t\t++ctl->top;\n  208  \t\t}\n  209: \t\tsheet_refreshsub(ctl, sht->vx0, sht->vy0, sht->vx0 + sht->bxsize, sht->vy0 + sht->bysize);\n  210  \t}\n  211  \treturn;\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\sheet.lst:\n   74      74 0000009B 5D                              \tPOP\tEBP\n   75      75 0000009C C3                              \tRET\n   76:     76 0000009D                                 \tGLOBAL\t_sheet_refresh\n   77:     77 0000009D                                 _sheet_refresh:\n   78      78 0000009D 55                              \tPUSH\tEBP\n   79      79 0000009E 31 D2                           \tXOR\tEDX,EDX\n   ..\n  147     147 00000139 5D                              \tPOP\tEBP\n  148     148 0000013A C3                              \tRET\n  149:    149 0000013B                                 \tGLOBAL\t_sheet_refreshsub\n  150:    150 0000013B                                 _sheet_refreshsub:\n  151     151 0000013B 55                              \tPUSH\tEBP\n  152     152 0000013C 31 D2                           \tXOR\tEDX,EDX\n  ...\n  255     255 00000230 51                              \tPUSH\tECX\n  256     256 00000231 FF 75 08                        \tPUSH\tDWORD [8+EBP]\n  257:    257 00000234 E8 FFFFFF02                     \tCALL\t_sheet_refreshsub\n  258     258 00000239 89 F0                           \tMOV\tEAX,ESI\n  259     259 0000023B 03 43 08                        \tADD\tEAX,DWORD [8+EBX]\n  ...\n  265     265 00000246 57                              \tPUSH\tEDI\n  266     266 00000247 FF 75 08                        \tPUSH\tDWORD [8+EBP]\n  267:    267 0000024A E8 FFFFFEEC                     \tCALL\t_sheet_refreshsub\n  268     268 0000024F 83 C4 28                        \tADD\tESP,40\n  269     269 00000252                                 L68:\n  ...\n  335     335 000002DB 5F                              \tPOP\tEDI\n  336     336 000002DC 5D                              \tPOP\tEBP\n  337:    337 000002DD E9 FFFFFDBB                     \tJMP\t_sheet_refresh\n  338     338 000002E2                                 L74:\n  339     339 000002E2 89 D3                           \tMOV\tEBX,EDX\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\sheet.nas:\n   74  \tPOP\tEBP\n   75  \tRET\n   76: \tGLOBAL\t_sheet_refresh\n   77: _sheet_refresh:\n   78  \tPUSH\tEBP\n   79  \tXOR\tEDX,EDX\n   ..\n  147  \tPOP\tEBP\n  148  \tRET\n  149: \tGLOBAL\t_sheet_refreshsub\n  150: _sheet_refreshsub:\n  151  \tPUSH\tEBP\n  152  \tXOR\tEDX,EDX\n  ...\n  255  \tPUSH\tECX\n  256  \tPUSH\tDWORD [8+EBP]\n  257: \tCALL\t_sheet_refreshsub\n  258  \tMOV\tEAX,ESI\n  259  \tADD\tEAX,DWORD [8+EBX]\n  ...\n  265  \tPUSH\tEDI\n  266  \tPUSH\tDWORD [8+EBP]\n  267: \tCALL\t_sheet_refreshsub\n  268  \tADD\tESP,40\n  269  L68:\n  ...\n  335  \tPOP\tEDI\n  336  \tPOP\tEBP\n  337: \tJMP\t_sheet_refresh\n  338  L74:\n  339  \tMOV\tEBX,EDX\n\n34 matches across 8 files\n\n\nSearching 47 files for \"sheet_refresh\" (whole word)\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.c:\n   61  \tsprintf(s, \"memory %dMB    free %dKB\", memtotal / (1024 * 1024), memman_total(memman) / 1024);\n   62  \tputfonts8_asc(buf_back, binfo->scrnx, 0, 32, COL8_FFFFFF, s);\n   63: \tsheet_refresh(shtctl);\n   64  \n   65  \t/*操作系统循环*/\n   ..\n   84  \t\t\t\tboxfill8(buf_back, binfo->scrnx, COL8_008484, 0, 16, 15, 31);\n   85  \t\t\t\tputfonts8_asc(buf_back, binfo->scrnx, 0, 16, COL8_FFFFFF, s);\n   86: \t\t\t\tsheet_refresh(shtctl);\n   87  \t\t\t}\n   88  \t\t\t/*处理鼠标信息*/\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.h:\n  178  struct SHEET *sheet_alloc(struct SHTCTL *ctl);\n  179  void sheet_setbuf(struct SHEET *sht, unsigned char *buf, int xsize, int ysize, int col_inv);\n  180: //void sheet_refresh(struct SHTCTL *ctl);\n  181: void sheet_refresh(struct SHTCTL *ctl, struct SHEET * sht, int bx0, int by0, int bx1, int by1);\n  182  void sheet_refreshsub(struct SHTCTL *ctl, int vx0, int vy0, int vx1, int vy1);\n  183  void sheet_slide(struct SHTCTL *ctl, struct SHEET *sht, int vx0, int vy0);\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\sheet.c:\n   48  }\n   49  \n   50: /*void sheet_refresh(struct SHTCTL *ctl)\n   51  {\n   52  \tint h, bx, by, vx, vy;\n   ..\n   74  }*/\n   75  \n   76: void sheet_refresh(struct SHTCTL *ctl, struct SHEET * sht, int bx0, int by0, int bx1, int by1)\n   77  {\n   78  \tif(sht->height >= 0)\n   ..\n  120  \tif(sht->height >= 0)\n  121  \t{\n  122: \t\t//sheet_refresh(ctl);\n  123  \t\tsheet_refreshsub(ctl, old_vx0, old_vy0, old_vx0 + sht->bxsize, old_vy0 + sht->bysize);\n  124  \t\tsheet_refreshsub(ctl, vx0, vy0, vx0 + sht->bxsize, vy0 + sht->bysize);\n\n7 matches across 3 files\n\n\nSearching 47 files for \"sheet_updown\"\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.c:\n   54  \tmy = (binfo->scrny -28 -16) / 2;\n   55  \tsheet_slide(sht_mouse, mx, my);\n   56: \tsheet_updown(sht_back, 0);\n   57: \tsheet_updown(sht_mouse, 1);\n   58  \t/*显示屏幕信息*/\n   59  \tsprintf(s, \"(%d, %d)\", mx, my);\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.h:\n  183  void sheet_refresh(struct SHEET * sht, int bx0, int by0, int bx1, int by1);\n  184  void sheet_slide(struct SHEET *sht, int vx0, int vy0);\n  185: void sheet_updown(struct SHEET *sht, int height);\n  186  void sheet_free(struct SHEET *sht);\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.lst:\n   24      24 00000000                                 \tEXTERN\t_init_mouse_cursor8\n   25      25 00000000                                 \tEXTERN\t_sheet_slide\n   26:     26 00000000                                 \tEXTERN\t_sheet_updown\n   27      27 00000000                                 \tEXTERN\t_sprintf\n   28      28 00000000                                 \tEXTERN\t_putfonts8_asc\n   ..\n  175     171 000001D8 6A 00                           \tPUSH\t0\n  176     172 000001DA FF B5 FFFFFE10                  \tPUSH\tDWORD [-496+EBP]\n  177:    173 000001E0 E8 [00000000]                   \tCALL\t_sheet_updown\n  178     174 000001E5 6A 01                           \tPUSH\t1\n  179     175 000001E7 FF B5 FFFFFE0C                  \tPUSH\tDWORD [-500+EBP]\n  180:    176 000001ED E8 [00000000]                   \tCALL\t_sheet_updown\n  181     177 000001F2 57                              \tPUSH\tEDI\n  182     178 000001F3 56                              \tPUSH\tESI\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.map:\n   69  0x00001112 : _sheet_refreshsub\n   70  0x00001261 : _sheet_slide\n   71: 0x000012B9 : _sheet_updown\n   72  0x00001448 : _sheet_free\n   73  0x0000146F : (.text)\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.nas:\n   24  \tEXTERN\t_init_mouse_cursor8\n   25  \tEXTERN\t_sheet_slide\n   26: \tEXTERN\t_sheet_updown\n   27  \tEXTERN\t_sprintf\n   28  \tEXTERN\t_putfonts8_asc\n   ..\n  171  \tPUSH\t0\n  172  \tPUSH\tDWORD [-496+EBP]\n  173: \tCALL\t_sheet_updown\n  174  \tPUSH\t1\n  175  \tPUSH\tDWORD [-500+EBP]\n  176: \tCALL\t_sheet_updown\n  177  \tPUSH\tEDI\n  178  \tPUSH\tESI\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\sheet.c:\n  136  }\n  137  \n  138: void sheet_updown(struct SHEET *sht, int height)\n  139  {\n  140  \tstruct SHTCTL *ctl = sht->ctl;\n  ...\n  226  \tif(sht->height >= 0)\n  227  \t{\n  228: \t\tsheet_updown(sht->ctl, sht, -1);\n  229  \t}\n  230  \tsht->flags = 0;\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\sheet.lst:\n  290     290 0000028D 5D                              \tPOP\tEBP\n  291     291 0000028E C3                              \tRET\n  292:    292 0000028F                                 \tGLOBAL\t_sheet_updown\n  293:    293 0000028F                                 _sheet_updown:\n  294     294 0000028F 55                              \tPUSH\tEBP\n  295     295 00000290 89 E5                           \tMOV\tEBP,ESP\n  ...\n  473     473 0000042D 53                              \tPUSH\tEBX\n  474     474 0000042E FF 75 08                        \tPUSH\tDWORD [8+EBP]\n  475:    475 00000431 E8 FFFFFE59                     \tCALL\t_sheet_updown\n  476     476 00000436 83 C4 0C                        \tADD\tESP,12\n  477     477 00000439                                 L100:\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\sheet.nas:\n  290  \tPOP\tEBP\n  291  \tRET\n  292: \tGLOBAL\t_sheet_updown\n  293: _sheet_updown:\n  294  \tPUSH\tEBP\n  295  \tMOV\tEBP,ESP\n  ...\n  473  \tPUSH\tEBX\n  474  \tPUSH\tDWORD [8+EBP]\n  475: \tCALL\t_sheet_updown\n  476  \tADD\tESP,12\n  477  L100:\n\n18 matches across 8 files\n\n\nSearching 47 files for \"sheet_refreshsub\"\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\bootpack.map:\n   67  0x000012AC : _sheet_alloc\n   68  0x000012DF : _sheet_setbuf\n   69: 0x000012FE : _sheet_refreshsub\n   70  0x0000144D : _sheet_refresh\n   71  0x0000149F : _sheet_slide\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\sheet.c:\n   49  }\n   50  \n   51: void sheet_refreshsub(struct SHTCTL *ctl, int vx0, int vy0, int vx1, int vy1, int h0)\n   52  {\n   53  \tint h, bx, by, vx, vy, bx0, by0, bx1, by1;\n   ..\n  117  \tif(sht->height >= 0)\n  118  \t{\n  119: \t\tsheet_refreshsub(sht->ctl, sht->vx0 + bx0, sht->vy0 + by0, sht->vx0 + bx1, sht->vy0 + by1);\n  120  \t}\n  121  \treturn;\n  ...\n  130  \t{\n  131  \t\t//sheet_refresh(ctl);\n  132: \t\tsheet_refreshsub(sht->ctl, old_vx0, old_vy0, old_vx0 + sht->bxsize, old_vy0 + sht->bysize);\n  133: \t\tsheet_refreshsub(sht->ctl, vx0, vy0, vx0 + sht->bxsize, vy0 + sht->bysize);\n  134  \t}\n  135  \treturn;\n  ...\n  182  \t\t\t--ctl->top;\n  183  \t\t}\n  184: \t\tsheet_refreshsub(ctl, sht->vx0, sht->vy0, sht->vx0 + sht->bxsize, sht->vy0 + sht->bysize);\n  185  \t}\n  186  \telse if(old < height)\n  ...\n  217  \t\t\t++ctl->top;\n  218  \t\t}\n  219: \t\tsheet_refreshsub(ctl, sht->vx0, sht->vy0, sht->vx0 + sht->bxsize, sht->vy0 + sht->bysize);\n  220  \t}\n  221  \treturn;\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\sheet.lst:\n   75      75 000000A3 5D                              \tPOP\tEBP\n   76      76 000000A4 C3                              \tRET\n   77:     77 000000A5                                 \tGLOBAL\t_sheet_refreshsub\n   78:     78 000000A5                                 _sheet_refreshsub:\n   79      79 000000A5 55                              \tPUSH\tEBP\n   80      80 000000A6 89 E5                           \tMOV\tEBP,ESP\n   ..\n  240     240 00000239 5F                              \tPOP\tEDI\n  241     241 0000023A 5D                              \tPOP\tEBP\n  242:    242 0000023B E9 FFFFFE65                     \tJMP\t_sheet_refreshsub\n  243     243 00000240                                 L56:\n  244     244 00000240 5B                              \tPOP\tEBX\n  ...\n  273     273 00000274 51                              \tPUSH\tECX\n  274     274 00000275 FF 73 20                        \tPUSH\tDWORD [32+EBX]\n  275:    275 00000278 E8 FFFFFE28                     \tCALL\t_sheet_refreshsub\n  276     276 0000027D 89 F0                           \tMOV\tEAX,ESI\n  277     277 0000027F 03 43 08                        \tADD\tEAX,DWORD [8+EBX]\n  ...\n  283     283 0000028A 57                              \tPUSH\tEDI\n  284     284 0000028B FF 73 20                        \tPUSH\tDWORD [32+EBX]\n  285:    285 0000028E E8 FFFFFE12                     \tCALL\t_sheet_refreshsub\n  286     286 00000293 83 C4 28                        \tADD\tESP,40\n  287     287 00000296                                 L58:\n  ...\n  358     358 0000032D 52                              \tPUSH\tEDX\n  359     359 0000032E 57                              \tPUSH\tEDI\n  360:    360 0000032F E8 FFFFFD71                     \tCALL\t_sheet_refreshsub\n  361     361 00000334 83 C4 14                        \tADD\tESP,20\n  362     362 00000337                                 L60:\n\nD:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\sheet.nas:\n   75  \tPOP\tEBP\n   76  \tRET\n   77: \tGLOBAL\t_sheet_refreshsub\n   78: _sheet_refreshsub:\n   79  \tPUSH\tEBP\n   80  \tMOV\tEBP,ESP\n   ..\n  240  \tPOP\tEDI\n  241  \tPOP\tEBP\n  242: \tJMP\t_sheet_refreshsub\n  243  L56:\n  244  \tPOP\tEBX\n  ...\n  273  \tPUSH\tECX\n  274  \tPUSH\tDWORD [32+EBX]\n  275: \tCALL\t_sheet_refreshsub\n  276  \tMOV\tEAX,ESI\n  277  \tADD\tEAX,DWORD [8+EBX]\n  ...\n  283  \tPUSH\tEDI\n  284  \tPUSH\tDWORD [32+EBX]\n  285: \tCALL\t_sheet_refreshsub\n  286  \tADD\tESP,40\n  287  L58:\n  ...\n  358  \tPUSH\tEDX\n  359  \tPUSH\tEDI\n  360: \tCALL\t_sheet_refreshsub\n  361  \tADD\tESP,20\n  362  L60:\n\n19 matches across 4 files\n",
+			"settings":
+			{
+				"buffer_size": 15445,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "vvos/bootpack.c",
+			"settings":
+			{
+				"buffer_size": 5018,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/bootpack.nas",
+			"settings":
+			{
+				"buffer_size": 7023,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/dsctbl.c",
+			"settings":
+			{
+				"buffer_size": 1442,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/fifo.c",
+			"settings":
+			{
+				"buffer_size": 1582,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vvos/bootpack.h",
+			"settings":
+			{
+				"buffer_size": 6449,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos"
+	],
+	"file_history":
+	[
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/bootpack.h",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/bootpack.c",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/graphic.c",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/int.c",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/naskfunc.nas",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/bootpack.lst",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/bootpack.map",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/bootpack.nas",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/fifo.c",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/asmhead.nas",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/graphic.lst",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/graphic.nas",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/dsctbl.c",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/asmhead.lst",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/ipl.nas",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/btp.hrb",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/btp.lst",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/btp.nas",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/func.nas",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/asmhead.bin",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/func.lst",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/btp.gas",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/haribote.img",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/z_tools/haribote/stdio.h",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/sys.bin",
+		"/D/Wii/Mine/Copy/20dayMakeOS/tolset/vvos/asm.bat",
+		"/D/Wii/Mine/Copy/30dayMakeOS/01_day/run.bat",
+		"/D/Wii/Mine/Copy/30dayMakeOS/01_day/install.bat",
+		"/D/Wii/Mine/Copy/30dayMakeOS/01_day/asm.bat",
+		"/D/Wii/Mine/Copy/30dayMakeOS/tolset/run/run.bat",
+		"/D/Wii/Mine/Copy/NoahGameFrame/CMakeLists.txt",
+		"/D/Wii/Mine/Copy/NoahGameFrame/NFServer/NFMasterServerPlugin/CMakeLists.txt",
+		"/D/Wii/Mine/Copy/NoahGameFrame/NFServer/NFMasterNet_HttpServerPlugin/CMakeLists.txt",
+		"/D/Wii/Mine/Copy/NoahGameFrame/NFServer/NFLoginLogicPlugin/CMakeLists.txt",
+		"/D/Wii/Mine/Copy/NoahGameFrame/NFServer/NFGameLogicPlugin/CMakeLists.txt",
+		"/D/Wii/Mine/Copy/NoahGameFrame/NFServer/NFDBNet_ServerPlugin/CMakeLists.txt",
+		"/D/Wii/Mine/Copy/NoahGameFrame/NFServer/NFDBNet_ClientPlugin/CMakeLists.txt",
+		"/D/Wii/Mine/Copy/NoahGameFrame/NFServer/NFDBLogicPlugin/CMakeLists.txt",
+		"/D/Wii/Mine/Copy/NoahGameFrame/NFServer/NFProxyServerNet_ServerPlugin/CMakeLists.txt",
+		"/D/Wii/Mine/Copy/NoahGameFrame/NFServer/NFWorldNet_ServerPlugin/CMakeLists.txt",
+		"/D/Wii/Mine/Copy/CMakeTest/1.txt",
+		"/D/Wii/Mine/Copy/NoahGameFrame/NFServer/NFWorldNet_ServerPlugin/dllmain.cpp",
+		"/D/Wii/Mine/Copy/skynet/skynet-src/socket_server.c",
+		"/D/Wii/Mine/Copy/skynet/skynet-src/socket_server.h",
+		"/D/Wii/Mine/Copy/skynet/skynet-src/skynet_socket.c",
+		"/D/Wii/Mine/Copy/skynet/3rd/lua/loadlib.c",
+		"/D/Wii/Mine/Copy/skynet/lualib/skynet/socket.lua",
+		"/D/Wii/Mine/Copy/skynet/3rd/jemalloc/include/jemalloc/internal/assert.h",
+		"/D/Wii/Mine/Copy/skynet/3rd/jemalloc/include/jemalloc/internal/malloc_io.h",
+		"/D/Wii/Mine/Copy/skynet/3rd/jemalloc/src/malloc_io.c",
+		"/D/Wii/Mine/Copy/skynet/service-src/service_gate.c",
+		"/D/Wii/Mine/Copy/skynet/service-src/databuffer.h",
+		"/D/Wii/Mine/github/nmathewson/Libevent/buffer.c"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 107.0,
+		"where_history":
+		[
+			"D:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos",
+			"D:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos\\*.c",
+			"D:\\Wii\\Mine\\Copy\\20dayMakeOS\\tolset\\vvos",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"usings",
+			"using",
+			"fifo8",
+			"url",
+			"sheet_refreshsub",
+			"sheet_updown",
+			"sheet_refresh",
+			"init_mouse_cursor8",
+			"error",
+			"ESP",
+			"memtest",
+			"load_gdtr",
+			"GDTR0",
+			"DSKCAC",
+			"CR0",
+			"LGDT",
+			"putfont8_asc",
+			"func.obj",
+			"func.nas",
+			"btp.nas",
+			"btp.obj",
+			"btp.gas",
+			"org",
+			"link_NFSDK",
+			"dbserver",
+			"nfx",
+			"project",
+			"CMakeLists.txt",
+			"read",
+			"forward_message_tcp",
+			"socket_server_poll",
+			"forward_message",
+			"socket_server_poll",
+			"sp_wait",
+			"sendto",
+			"socket_server_send",
+			"do"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"putfonts8_asc",
+			"naskfunc.obj",
+			"naskfunc.nas",
+			"bootpack.nas",
+			"bootpack.obj",
+			"bootpack.gas"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "vvos/Makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2157,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								847,
+								847
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "vvos/timer.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1909,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1679,
+								1679
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1402.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "vvos/memory.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2793,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1808,
+								1808
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1596.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "vvos/asmhead.nas",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3263,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2777,
+								2777
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 855.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "vvos/naskfunc.nas",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3020,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2273,
+								2273
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "vvos/int.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 659,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								659,
+								659
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "vvos/keyboard.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 608,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								225,
+								229
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 57.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "vvos/mouse.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1462,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								139,
+								139
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 171.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "vvos/sheet.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7290,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2926,
+								2926
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2052.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15445,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										274,
+										287
+									],
+									[
+										487,
+										500
+									],
+									[
+										765,
+										778
+									],
+									[
+										812,
+										825
+									],
+									[
+										915,
+										928
+									],
+									[
+										1423,
+										1436
+									],
+									[
+										1807,
+										1820
+									],
+									[
+										2091,
+										2104
+									],
+									[
+										2126,
+										2139
+									],
+									[
+										2341,
+										2354
+									],
+									[
+										2485,
+										2498
+									],
+									[
+										2611,
+										2624
+									],
+									[
+										2722,
+										2735
+									],
+									[
+										2869,
+										2882
+									],
+									[
+										3011,
+										3024
+									],
+									[
+										3180,
+										3193
+									],
+									[
+										3209,
+										3222
+									],
+									[
+										3305,
+										3318
+									],
+									[
+										3450,
+										3463
+									],
+									[
+										3629,
+										3642
+									],
+									[
+										3987,
+										4000
+									],
+									[
+										4057,
+										4070
+									],
+									[
+										4399,
+										4412
+									],
+									[
+										4472,
+										4485
+									],
+									[
+										4831,
+										4844
+									],
+									[
+										5202,
+										5215
+									],
+									[
+										5541,
+										5554
+									],
+									[
+										5780,
+										5793
+									],
+									[
+										5802,
+										5815
+									],
+									[
+										5904,
+										5917
+									],
+									[
+										5929,
+										5942
+									],
+									[
+										6048,
+										6061
+									],
+									[
+										6179,
+										6192
+									],
+									[
+										6278,
+										6291
+									],
+									[
+										6640,
+										6653
+									],
+									[
+										6853,
+										6866
+									],
+									[
+										7131,
+										7144
+									],
+									[
+										7178,
+										7191
+									],
+									[
+										7519,
+										7532
+									],
+									[
+										7630,
+										7643
+									],
+									[
+										7814,
+										7827
+									],
+									[
+										8219,
+										8231
+									],
+									[
+										8254,
+										8266
+									],
+									[
+										8552,
+										8564
+									],
+									[
+										8919,
+										8931
+									],
+									[
+										9291,
+										9303
+									],
+									[
+										9507,
+										9519
+									],
+									[
+										9798,
+										9810
+									],
+									[
+										10006,
+										10018
+									],
+									[
+										10138,
+										10150
+									],
+									[
+										10210,
+										10222
+									],
+									[
+										10337,
+										10349
+									],
+									[
+										10483,
+										10495
+									],
+									[
+										10791,
+										10803
+									],
+									[
+										10860,
+										10872
+									],
+									[
+										11215,
+										11227
+									],
+									[
+										11453,
+										11465
+									],
+									[
+										11474,
+										11486
+									],
+									[
+										11589,
+										11601
+									],
+									[
+										11849,
+										11865
+									],
+									[
+										12014,
+										12030
+									],
+									[
+										12209,
+										12225
+									],
+									[
+										12383,
+										12399
+									],
+									[
+										12484,
+										12500
+									],
+									[
+										12634,
+										12650
+									],
+									[
+										12813,
+										12829
+									],
+									[
+										13171,
+										13187
+									],
+									[
+										13244,
+										13260
+									],
+									[
+										13590,
+										13606
+									],
+									[
+										13940,
+										13956
+									],
+									[
+										14312,
+										14328
+									],
+									[
+										14654,
+										14670
+									],
+									[
+										14895,
+										14911
+									],
+									[
+										14920,
+										14936
+									],
+									[
+										15026,
+										15042
+									],
+									[
+										15136,
+										15152
+									],
+									[
+										15268,
+										15284
+									],
+									[
+										15370,
+										15386
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								12218,
+								12218
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 4,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ \t].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 5928.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "vvos/bootpack.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5018,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2854,
+								2854
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1425.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "vvos/bootpack.nas",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7023,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5473,
+								5473
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 8646.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "vvos/dsctbl.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1442,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								28,
+								28
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "vvos/fifo.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1582,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1303,
+								1267
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1140.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "vvos/bootpack.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6449,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6048,
+								6048
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3581.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 39.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "vv_os.sublime-project",
+	"replace":
+	{
+		"height": 74.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 592.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 289.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
