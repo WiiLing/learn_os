@@ -259,7 +259,7 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline)
 	struct MEMMAN *memman = (struct MEMMAN *)MEMMAN_ADDR;
 	struct FILEINFO *finfo;
 	struct SEGMENT_DESCRIPTOR *gdt = (struct SEGMENT_DESCRIPTOR *)ADR_GDT;
-	char *p, name[18];
+	char *p, name[18], *q;
 	int i;
 
 	for (i = 0; i < 13; ++i)
@@ -286,9 +286,11 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline)
 	if(finfo != 0)
 	{
 		p = (char *)memman_alloc_4k(memman, finfo->size);
+		q = (char *)memman_alloc_4k(memman, 64 * 1024);
 		*((int *)0x0fe8) = (int)p;
 		file_loadfile(finfo->clustno, finfo->size, p, fat, (char *)(ADR_DISKIMG + 0x003e00));
 		set_segmdesc(gdt + 1003, finfo->size - 1, (int)p, AR_CODE32_ER);
+		set_segmdesc(gdt + 1004, 64 * 1024 - 1, (int)q, AR_DATA32_RW);
 		if(finfo->size >= 8 && strncmp(p + 4, "Hari", 4) == 0)
 		{
 			p[0] = 0xe8;
@@ -299,7 +301,9 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline)
 			p[5] = 0xcb;
 		}
 		farcall(0, 1003 * 8);
+		start_app(0, 1003 * 8, 64 * 1024, 1004 * 8);
 		memman_free_4k(memman, (int)p, finfo->size);
+		memman_free_4k(memman, (int)q, 64 * 1024);
 		cons_newline(cons);
 		return 1;
 	}
@@ -402,4 +406,11 @@ void console_task(struct SHEET *sht, unsigned int memtotal)
 			sheet_refresh(sht, cons.cur_x, cons.cur_y, cons.cur_x + 8, cons.cur_y + 16);
 		}
 	}
+}
+
+int inthandler0d(int *esp)
+{
+	struct CONSOLE *cons = (struct CONSOLE *)*((int *)0x0fec);
+	cons_putstr(cons, "\nINT 0D :\n General Protected Exception.\n");
+	return 1;
 }

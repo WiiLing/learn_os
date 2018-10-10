@@ -11,14 +11,14 @@
     11 00000000                                 		GLOBAL	_io_out8, _io_out16, _io_out32
     12 00000000                                 		GLOBAL	_io_load_eflags, _io_store_eflags
     13 00000000                                 		GLOBAL	_load_gdtr, _load_idtr
-    14 00000000                                 		GLOBAL 	_asm_inthandler21, _asm_inthandler2c, _asm_inthandler20
-    15 00000000                                 		EXTERN 	_inthandler21, _inthandler2c, _inthandler20
+    14 00000000                                 		GLOBAL 	_asm_inthandler21, _asm_inthandler2c, _asm_inthandler20, _asm_inthandler0d
+    15 00000000                                 		EXTERN 	_inthandler21, _inthandler2c, _inthandler20, _inthandler0d
     16 00000000                                 		GLOBAL 	_load_cr0, _store_cr0
     17 00000000                                 		GLOBAL 	_memtest_sub
     18 00000000                                 		GLOBAL 	_load_tr, _taskswitch4, _taskswitch3, _farjmp, _farcall
     19 00000000                                 		EXTERN 	_cons_putchar, _hrb_api
     20 00000000                                 		GLOBAL 	_asm_cons_putchar, _asm_hrb_api
-    21 00000000                                 		GLOBAL 	_start_up
+    21 00000000                                 		GLOBAL 	_start_app
     22 00000000                                 
     23                                          [SECTION .text]
     24 00000000                                 
@@ -97,7 +97,7 @@
     97 00000069 0F 01 5C 24 06                  		LIDT	[ESP+6]
     98 0000006E C3                              		RET
     99 0000006F                                 
-   100 0000006F                                 _asm_inthandler21:
+   100 0000006F                                 ;_asm_inthandler21:
    101 0000006F 06                              		PUSH 	ES
    102 00000070 1E                              		PUSH 	DS
    103 00000071 60                              		PUSHAD
@@ -113,7 +113,7 @@
    113 00000084 07                              		POP 	ES
    114 00000085 CF                              		IRETD
    115 00000086                                 
-   116 00000086                                 _asm_inthandler2c:
+   116 00000086                                 ;_asm_inthandler2c:
    117 00000086 06                              		PUSH 	ES
    118 00000087 1E                              		PUSH 	DS
    119 00000088 60                              		PUSHAD
@@ -129,7 +129,7 @@
    129 0000009B 07                              		POP 	ES
    130 0000009C CF                              		IRETD
    131 0000009D                                 
-   132 0000009D                                 _asm_inthandler20:
+   132 0000009D                                 ;_asm_inthandler20:
    133 0000009D 06                              		PUSH 	ES
    134 0000009E 1E                              		PUSH 	DS
    135 0000009F 60                              		PUSHAD
@@ -145,121 +145,462 @@
    145 000000B2 07                              		POP 	ES
    146 000000B3 CF                              		IRETD
    147 000000B4                                 
-   148 000000B4                                 _load_cr0:
-   149 000000B4 0F 20 C0                        		MOV 	EAX, CR0
-   150 000000B7 C3                              		RET
-   151 000000B8                                 
-   152 000000B8                                 _store_cr0:
-   153 000000B8 8B 44 24 04                     		MOV 	EAX, [ESP+4]
-   154 000000BC 0F 22 C0                        		MOV 	CR0, EAX
-   155 000000BF C3                              		RET
-   156 000000C0                                 
-   157 000000C0                                 _memtest_sub: 	; unsigned int memtest_sub(unsigned int start, unsigned int end)
-   158 000000C0 56                              		PUSH 	ESI
-   159 000000C1 57                              		PUSH 	EDI
-   160 000000C2 53                              		PUSH 	EBX
-   161 000000C3 BE AA55AA55                     		MOV 	ESI, 0xaa55aa55
-   162 000000C8 BF 55AA55AA                     		MOV 	EDI, 0x55aa55aa
-   163 000000CD 8B 44 24 10                     		MOV 	EAX, [ESP+12+4]
-   164 000000D1                                 mts_loop:
-   165 000000D1 3B 44 24 14                     		CMP 	EAX, [ESP+12+8]
-   166 000000D5 77 25                           		JA	 	mts_fin
-   167 000000D7 89 C3                           		MOV 	EBX, EAX
-   168 000000D9 81 C3 00000FFC                  		ADD 	EBX, 0x0ffc
-   169 000000DF 8B 13                           		MOV 	EDX, [EBX]
-   170 000000E1 89 33                           		MOV 	[EBX], ESI
-   171 000000E3 83 33 FF                        		XOR 	DWORD [EBX], 0xffffffff
-   172 000000E6 3B 3B                           		CMP 	EDI, [EBX]
-   173 000000E8 75 10                           		JNE 	mts_rcv
-   174 000000EA 83 33 FF                        		XOR 	DWORD [EBX], 0xffffffff
-   175 000000ED 3B 33                           		CMP 	ESI, [EBX]
-   176 000000EF 75 09                           		JNE 	mts_rcv
-   177 000000F1 89 13                           		MOV 	[EBX], EDX
-   178 000000F3 05 00001000                     		ADD 	EAX, 0x1000
-   179 000000F8 EB D7                           		JMP 	mts_loop
-   180 000000FA                                 mts_rcv:
-   181 000000FA 89 13                           		MOV 	[EBX], EDX
-   182 000000FC                                 mts_fin:
-   183 000000FC 5B                              		POP 	EBX
-   184 000000FD 5F                              		POP 	EDI
-   185 000000FE 5E                              		POP 	ESI
-   186 000000FF C3                              		RET
-   187 00000100                                 
-   188 00000100                                 _load_tr:
-   189 00000100 0F 00 5C 24 04                  		LTR 	[ESP+4]
-   190 00000105 C3                              		RET
-   191 00000106                                 
-   192 00000106                                 _taskswitch4:
-   193 00000106 EA 00000000 0020                		JMP 	4*8:0
-   194 0000010D C3                              		RET
-   195 0000010E                                 
-   196 0000010E                                 _taskswitch3:
-   197 0000010E EA 00000000 0018                		JMP 	3*8:0
-   198 00000115 C3                              		RET
-   199 00000116                                 
-   200 00000116                                 _farjmp: 						; void farjmp(int eip, int cs);
-   201 00000116 FF 6C 24 04                     		JMP 	FAR [ESP+4] 	; JMP FAR指令，先从栈取4个字节放入EIP，再取2个字节放入CS
-   202 0000011A C3                              		RET
-   203 0000011B                                 
-   204 0000011B                                 _farcall:
-   205 0000011B FF 5C 24 04                     		CALL 	FAR [ESP+4]
-   206 0000011F C3                              		RET
-   207 00000120                                 
-   208 00000120                                 _asm_cons_putchar:
-   209 00000120 FB                              		STI
-   210 00000121 60                              		PUSHAD
-   211 00000122 6A 01                           		PUSH 	1
-   212 00000124 25 000000FF                     		AND 	EAX, 0xff
-   213 00000129 50                              		PUSH 	EAX
-   214 0000012A FF 35 00000FEC                  		PUSH 	DWORD [0x0fec]
-   215 00000130 E8 [00000000]                   		CALL 	_cons_putchar
-   216 00000135 83 C4 0C                        		ADD 	ESP, 12
-   217 00000138 61                              		POPAD
-   218 00000139 CF                              		IRETD
-   219 0000013A                                 
-   220 0000013A                                 _asm_hrb_api:
-   221 0000013A FB                              		STI
-   222 0000013B 60                              		PUSHAD
-   223 0000013C                                 
-   224 0000013C 60                              		PUSHAD
-   225 0000013D E8 [00000000]                   		CALL 	_hrb_api
-   226 00000142 83 C4 20                        		ADD 	ESP, 32
-   227 00000145                                 
-   228 00000145 61                              		POPAD
-   229 00000146 CF                              		IRETD
-   230 00000147                                 
-   231 00000147                                 _start_up: 							; void start_app(int eip, int cs, int esp, int ds)
-   232 00000147 60                              		PUSHAD 						; 将8*4位寄存器的值压入栈
-   233 00000148                                 
-   234 00000148 8B 44 24 24                     		MOV 	EAX, [ESP+32+4] 	; 应用程序EIP
-   235 0000014C 8B 4C 24 28                     		MOV 	ECX, [ESP+32+8] 	; 应用程序CS
-   236 00000150 8B 54 24 2C                     		MOV 	EDX, [ESP+32+12] 	; 应用程序ESP
-   237 00000154 8B 5C 24 30                     		MOV 	EBX, [ESP+32+16] 	; 应用程序DS/SS
-   238 00000158 89 25 00000FE4                  		MOV 	[0x0fe4], ESP 		; 操作系统ESP
-   239 0000015E                                 
-   240 0000015E FA                              		CLI
-   241 0000015F 8E C3                           		MOV 	ES, BX
-   242 00000161 8E D3                           		MOV 	SS, BX
-   243 00000163 8E DB                           		MOV 	DS, BX
-   244 00000165 8E E3                           		MOV 	FS, BX
-   245 00000167 8E EB                           		MOV 	GS, BX
-   246 00000169 89 D4                           		MOV 	ESP, EDX
-   247 0000016B FB                              		STI
-   248 0000016C                                 
-   249 0000016C 51                              		PUSH 	ECX
-   250 0000016D 50                              		PUSH 	EAX
-   251 0000016E FF 1C 24                        		CALL 	FAR [ESP]
-   252 00000171                                 
-   253 00000171 B8 00000008                     		MOV 	EAX, 1*8
-   254 00000176                                 
-   255 00000176 FA                              		CLI
-   256 00000177 8E C0                           		MOV 	ES, AX
-   257 00000179 8E D0                           		MOV 	SS, AX
-   258 0000017B 8E D8                           		MOV 	DS, AX
-   259 0000017D 8E E0                           		MOV 	FS, AX
-   260 0000017F 8E E8                           		MOV 	GS, AX
-   261 00000181 8B 25 00000FE4                  		MOV 	ESP, [0x0fe4]
-   262 00000187 FB                              		STI
-   263 00000188                                 
-   264 00000188 61                              		POPAD
-   265 00000189 C3                              		RET
+   148 000000B4                                 _asm_inthandler21:
+   149 000000B4 06                              		PUSH 	ES
+   150 000000B5 1E                              		PUSH 	DS
+   151 000000B6 60                              		PUSHAD
+   152 000000B7                                 
+   153 000000B7                                 		; 用户态需要特殊处理
+   154 000000B7 66 8C D0                        		MOV 	AX, SS
+   155 000000BA 66 3D 0008                      		CMP 	AX, 1*8
+   156 000000BE 75 17                           		JNE 	.from_app_i21
+   157 000000C0                                 
+   158 000000C0                                 		; 入栈ESP、SS
+   159 000000C0 89 E0                           		MOV 	EAX, ESP
+   160 000000C2 16                              		PUSH 	SS
+   161 000000C3 50                              		PUSH 	EAX
+   162 000000C4 66 8C D0                        		MOV 	AX, SS
+   163 000000C7 8E D8                           		MOV 	DS, AX
+   164 000000C9 8E C0                           		MOV 	ES, AX
+   165 000000CB                                 
+   166 000000CB E8 [00000000]                   		CALL 	_inthandler21
+   167 000000D0                                 
+   168 000000D0                                 		; 丢弃SS、ESP
+   169 000000D0 83 C4 08                        		ADD 	ESP, 8
+   170 000000D3                                 
+   171 000000D3 61                              		POPAD
+   172 000000D4 1F                              		POP 	DS
+   173 000000D5 07                              		POP 	ES
+   174 000000D6 CF                              		IRETD
+   175 000000D7                                 
+   176 000000D7                                 .from_app_i21:
+   177 000000D7 B8 00000008                     		MOV 	EAX, 1*8
+   178 000000DC                                 		; 数据段寄存器指向系统段
+   179 000000DC 8E D8                           		MOV 	DS, AX
+   180 000000DE                                 
+   181 000000DE                                 		; 读取系统栈的高度
+   182 000000DE 8B 0D 00000FE4                  		MOV 	ECX, [0x0fe4]
+   183 000000E4                                 
+   184 000000E4                                 		; 保存应用程序的SS、ESP
+   185 000000E4 83 C1 F8                        		ADD 	ECX, -8
+   186 000000E7 8C 51 04                        		MOV 	[ECX+4], SS
+   187 000000EA 89 21                           		MOV 	[ECX], ESP
+   188 000000EC                                 
+   189 000000EC                                 		; 填入系统的段寄存器
+   190 000000EC 8E D0                           		MOV 	SS, AX
+   191 000000EE 8E C0                           		MOV 	ES, AX
+   192 000000F0                                 		; 设置系统的栈指针
+   193 000000F0 89 CC                           		MOV 	ESP, ECX
+   194 000000F2                                 
+   195 000000F2                                 		; 进入系统调用
+   196 000000F2 E8 [00000000]                   		CALL 	_inthandler21
+   197 000000F7                                 
+   198 000000F7                                 		; 恢复应用程序的SS、ESP
+   199 000000F7 59                              		POP 	ECX
+   200 000000F8 58                              		POP 	EAX
+   201 000000F9 8E D0                           		MOV 	SS, AX
+   202 000000FB 89 CC                           		MOV 	ESP, ECX
+   203 000000FD                                 
+   204 000000FD 61                              		POPAD
+   205 000000FE 1F                              		POP 	DS
+   206 000000FF 07                              		POP 	ES
+   207 00000100 CF                              		IRETD
+   208 00000101                                 
+   209 00000101                                 _asm_inthandler2c:
+   210 00000101 06                              		PUSH 	ES
+   211 00000102 1E                              		PUSH 	DS
+   212 00000103 60                              		PUSHAD
+   213 00000104                                 
+   214 00000104                                 		; 用户态需要特殊处理
+   215 00000104 66 8C D0                        		MOV 	AX, SS
+   216 00000107 66 3D 0008                      		CMP 	AX, 1*8
+   217 0000010B 75 17                           		JNE 	.from_app_i2c
+   218 0000010D                                 
+   219 0000010D                                 		; 入栈ESP、SS
+   220 0000010D 89 E0                           		MOV 	EAX, ESP
+   221 0000010F 16                              		PUSH 	SS
+   222 00000110 50                              		PUSH 	EAX
+   223 00000111 66 8C D0                        		MOV 	AX, SS
+   224 00000114 8E D8                           		MOV 	DS, AX
+   225 00000116 8E C0                           		MOV 	ES, AX
+   226 00000118                                 
+   227 00000118 E8 [00000000]                   		CALL 	_inthandler2c
+   228 0000011D                                 
+   229 0000011D                                 		; 丢弃SS、ESP
+   230 0000011D 83 C4 08                        		ADD 	ESP, 8
+   231 00000120                                 
+   232 00000120 61                              		POPAD
+   233 00000121 1F                              		POP 	DS
+   234 00000122 07                              		POP 	ES
+   235 00000123 CF                              		IRETD
+   236 00000124                                 
+   237 00000124                                 .from_app_i2c:
+   238 00000124 B8 00000008                     		MOV 	EAX, 1*8
+   239 00000129                                 		; 数据段寄存器指向系统段
+   240 00000129 8E D8                           		MOV 	DS, AX
+   241 0000012B                                 
+   242 0000012B                                 		; 读取系统栈的高度
+   243 0000012B 8B 0D 00000FE4                  		MOV 	ECX, [0x0fe4]
+   244 00000131                                 
+   245 00000131                                 		; 保存应用程序的SS、ESP
+   246 00000131 83 C1 F8                        		ADD 	ECX, -8
+   247 00000134 8C 51 04                        		MOV 	[ECX+4], SS
+   248 00000137 89 21                           		MOV 	[ECX], ESP
+   249 00000139                                 
+   250 00000139                                 		; 填入系统的段寄存器
+   251 00000139 8E D0                           		MOV 	SS, AX
+   252 0000013B 8E C0                           		MOV 	ES, AX
+   253 0000013D                                 		; 设置系统的栈指针
+   254 0000013D 89 CC                           		MOV 	ESP, ECX
+   255 0000013F                                 
+   256 0000013F                                 		; 进入系统调用
+   257 0000013F E8 [00000000]                   		CALL 	_inthandler2c
+   258 00000144                                 
+   259 00000144                                 		; 恢复应用程序的SS、ESP
+   260 00000144 59                              		POP 	ECX
+   261 00000145 58                              		POP 	EAX
+   262 00000146 8E D0                           		MOV 	SS, AX
+   263 00000148 89 CC                           		MOV 	ESP, ECX
+   264 0000014A                                 
+   265 0000014A 61                              		POPAD
+   266 0000014B 1F                              		POP 	DS
+   267 0000014C 07                              		POP 	ES
+   268 0000014D CF                              		IRETD
+   269 0000014E                                 
+   270 0000014E                                 _asm_inthandler20:
+   271 0000014E 06                              		PUSH 	ES
+   272 0000014F 1E                              		PUSH 	DS
+   273 00000150 60                              		PUSHAD
+   274 00000151                                 
+   275 00000151                                 		; 用户态需要特殊处理
+   276 00000151 66 8C D0                        		MOV 	AX, SS
+   277 00000154 66 3D 0008                      		CMP 	AX, 1*8
+   278 00000158 75 17                           		JNE 	.from_app_i20
+   279 0000015A                                 
+   280 0000015A                                 		; 入栈ESP、SS
+   281 0000015A 89 E0                           		MOV 	EAX, ESP
+   282 0000015C 16                              		PUSH 	SS
+   283 0000015D 50                              		PUSH 	EAX
+   284 0000015E 66 8C D0                        		MOV 	AX, SS
+   285 00000161 8E D8                           		MOV 	DS, AX
+   286 00000163 8E C0                           		MOV 	ES, AX
+   287 00000165                                 
+   288 00000165 E8 [00000000]                   		CALL 	_inthandler20
+   289 0000016A                                 
+   290 0000016A                                 		; 丢弃SS、ESP
+   291 0000016A 83 C4 08                        		ADD 	ESP, 8
+   292 0000016D                                 
+   293 0000016D 61                              		POPAD
+   294 0000016E 1F                              		POP 	DS
+   295 0000016F 07                              		POP 	ES
+   296 00000170 CF                              		IRETD
+   297 00000171                                 
+   298 00000171                                 .from_app_i20:
+   299 00000171 B8 00000008                     		MOV 	EAX, 1*8
+   300 00000176                                 		; 数据段寄存器指向系统段
+   301 00000176 8E D8                           		MOV 	DS, AX
+   302 00000178                                 
+   303 00000178                                 		; 读取系统栈的高度
+   304 00000178 8B 0D 00000FE4                  		MOV 	ECX, [0x0fe4]
+   305 0000017E                                 
+   306 0000017E                                 		; 保存应用程序的SS、ESP
+   307 0000017E 83 C1 F8                        		ADD 	ECX, -8
+   308 00000181 8C 51 04                        		MOV 	[ECX+4], SS
+   309 00000184 89 21                           		MOV 	[ECX], ESP
+   310 00000186                                 
+   311 00000186                                 		; 填入系统的段寄存器
+   312 00000186 8E D0                           		MOV 	SS, AX
+   313 00000188 8E C0                           		MOV 	ES, AX
+   314 0000018A                                 		; 设置系统的栈指针
+   315 0000018A 89 CC                           		MOV 	ESP, ECX
+   316 0000018C                                 
+   317 0000018C                                 		; 进入系统调用
+   318 0000018C E8 [00000000]                   		CALL 	_inthandler20
+   319 00000191                                 
+   320 00000191                                 		; 恢复应用程序的SS、ESP
+   321 00000191 59                              		POP 	ECX
+   322 00000192 58                              		POP 	EAX
+   323 00000193 8E D0                           		MOV 	SS, AX
+   324 00000195 89 CC                           		MOV 	ESP, ECX
+   325 00000197                                 
+   326 00000197 61                              		POPAD
+   327 00000198 1F                              		POP 	DS
+   328 00000199 07                              		POP 	ES
+   329 0000019A CF                              		IRETD
+   330 0000019B                                 
+   331 0000019B                                 _asm_inthandler0d:
+   332 0000019B FB                              		STI
+   333 0000019C 06                              		PUSH 	ES
+   334 0000019D 1E                              		PUSH 	DS
+   335 0000019E 60                              		PUSHAD
+   336 0000019F                                 
+   337 0000019F                                 		; 用户态需要特殊处理
+   338 0000019F 66 8C D0                        		MOV 	AX, SS
+   339 000001A2 66 3D 0008                      		CMP 	AX, 1*8
+   340 000001A6 75 1A                           		JNE 	.from_app_i0d
+   341 000001A8                                 
+   342 000001A8                                 		; 入栈ESP、SS
+   343 000001A8 89 E0                           		MOV 	EAX, ESP
+   344 000001AA 16                              		PUSH 	SS
+   345 000001AB 50                              		PUSH 	EAX
+   346 000001AC 66 8C D0                        		MOV 	AX, SS
+   347 000001AF 8E D8                           		MOV 	DS, AX
+   348 000001B1 8E C0                           		MOV 	ES, AX
+   349 000001B3                                 
+   350 000001B3 E8 [00000000]                   		CALL 	_inthandler0d
+   351 000001B8                                 
+   352 000001B8                                 		; 丢弃SS、ESP
+   353 000001B8 83 C4 08                        		ADD 	ESP, 8
+   354 000001BB                                 
+   355 000001BB 61                              		POPAD
+   356 000001BC 1F                              		POP 	DS
+   357 000001BD 07                              		POP 	ES
+   358 000001BE 83 C4 04                        		ADD 	ESP, 4
+   359 000001C1 CF                              		IRETD
+   360 000001C2                                 
+   361 000001C2                                 .from_app_i0d:
+   362 000001C2 FA                              		CLI
+   363 000001C3 B8 00000008                     		MOV 	EAX, 1*8
+   364 000001C8                                 		; 数据段寄存器指向系统段
+   365 000001C8 8E D8                           		MOV 	DS, AX
+   366 000001CA                                 
+   367 000001CA                                 		; 读取系统栈的高度
+   368 000001CA 8B 0D 00000FE4                  		MOV 	ECX, [0x0fe4]
+   369 000001D0                                 
+   370 000001D0                                 		; 保存应用程序的SS、ESP
+   371 000001D0 83 C1 F8                        		ADD 	ECX, -8
+   372 000001D3 8C 51 04                        		MOV 	[ECX+4], SS
+   373 000001D6 89 21                           		MOV 	[ECX], ESP
+   374 000001D8                                 
+   375 000001D8                                 		; 填入系统的段寄存器
+   376 000001D8 8E D0                           		MOV 	SS, AX
+   377 000001DA 8E C0                           		MOV 	ES, AX
+   378 000001DC                                 		; 设置系统的栈指针
+   379 000001DC 89 CC                           		MOV 	ESP, ECX
+   380 000001DE FB                              		STI
+   381 000001DF                                 
+   382 000001DF                                 		; 进入系统调用
+   383 000001DF E8 [00000000]                   		CALL 	_inthandler0d
+   384 000001E4                                 
+   385 000001E4 FA                              		CLI
+   386 000001E5 83 F8 00                        		CMP 	EAX, 0
+   387 000001E8 75 0D                           		JNE 	.kill_i0d
+   388 000001EA                                 		; 恢复应用程序的SS、ESP
+   389 000001EA 59                              		POP 	ECX
+   390 000001EB 58                              		POP 	EAX
+   391 000001EC 8E D0                           		MOV 	SS, AX
+   392 000001EE 89 CC                           		MOV 	ESP, ECX
+   393 000001F0                                 
+   394 000001F0 61                              		POPAD
+   395 000001F1 1F                              		POP 	DS
+   396 000001F2 07                              		POP 	ES
+   397 000001F3 83 C4 04                        		ADD 	ESP, 4
+   398 000001F6 CF                              		IRETD
+   399 000001F7                                 
+   400 000001F7                                 .kill_i0d:
+   401 000001F7 66 B8 0008                      		MOV 	AX, 1*8
+   402 000001FB 8E C0                           		MOV 	ES, AX
+   403 000001FD 8E D0                           		MOV 	SS, AX
+   404 000001FF 8E D8                           		MOV 	DS, AX
+   405 00000201 8E E0                           		MOV 	FS, AX
+   406 00000203 8E E8                           		MOV 	GS, AX
+   407 00000205 8B 25 00000FE4                  		MOV 	ESP, [0x0fe4]
+   408 0000020B FB                              		STI
+   409 0000020C 61                              		POPAD
+   410 0000020D C3                              		RET
+   411 0000020E                                 
+   412 0000020E                                 _load_cr0:
+   413 0000020E 0F 20 C0                        		MOV 	EAX, CR0
+   414 00000211 C3                              		RET
+   415 00000212                                 
+   416 00000212                                 _store_cr0:
+   417 00000212 8B 44 24 04                     		MOV 	EAX, [ESP+4]
+   418 00000216 0F 22 C0                        		MOV 	CR0, EAX
+   419 00000219 C3                              		RET
+   420 0000021A                                 
+   421 0000021A                                 _memtest_sub: 	; unsigned int memtest_sub(unsigned int start, unsigned int end)
+   422 0000021A 56                              		PUSH 	ESI
+   423 0000021B 57                              		PUSH 	EDI
+   424 0000021C 53                              		PUSH 	EBX
+   425 0000021D BE AA55AA55                     		MOV 	ESI, 0xaa55aa55
+   426 00000222 BF 55AA55AA                     		MOV 	EDI, 0x55aa55aa
+   427 00000227 8B 44 24 10                     		MOV 	EAX, [ESP+12+4]
+   428 0000022B                                 mts_loop:
+   429 0000022B 3B 44 24 14                     		CMP 	EAX, [ESP+12+8]
+   430 0000022F 77 25                           		JA	 	mts_fin
+   431 00000231 89 C3                           		MOV 	EBX, EAX
+   432 00000233 81 C3 00000FFC                  		ADD 	EBX, 0x0ffc
+   433 00000239 8B 13                           		MOV 	EDX, [EBX]
+   434 0000023B 89 33                           		MOV 	[EBX], ESI
+   435 0000023D 83 33 FF                        		XOR 	DWORD [EBX], 0xffffffff
+   436 00000240 3B 3B                           		CMP 	EDI, [EBX]
+   437 00000242 75 10                           		JNE 	mts_rcv
+   438 00000244 83 33 FF                        		XOR 	DWORD [EBX], 0xffffffff
+   439 00000247 3B 33                           		CMP 	ESI, [EBX]
+   440 00000249 75 09                           		JNE 	mts_rcv
+   441 0000024B 89 13                           		MOV 	[EBX], EDX
+   442 0000024D 05 00001000                     		ADD 	EAX, 0x1000
+   443 00000252 EB D7                           		JMP 	mts_loop
+   444 00000254                                 mts_rcv:
+   445 00000254 89 13                           		MOV 	[EBX], EDX
+   446 00000256                                 mts_fin:
+   447 00000256 5B                              		POP 	EBX
+   448 00000257 5F                              		POP 	EDI
+   449 00000258 5E                              		POP 	ESI
+   450 00000259 C3                              		RET
+   451 0000025A                                 
+   452 0000025A                                 _load_tr:
+   453 0000025A 0F 00 5C 24 04                  		LTR 	[ESP+4]
+   454 0000025F C3                              		RET
+   455 00000260                                 
+   456 00000260                                 _taskswitch4:
+   457 00000260 EA 00000000 0020                		JMP 	4*8:0
+   458 00000267 C3                              		RET
+   459 00000268                                 
+   460 00000268                                 _taskswitch3:
+   461 00000268 EA 00000000 0018                		JMP 	3*8:0
+   462 0000026F C3                              		RET
+   463 00000270                                 
+   464 00000270                                 _farjmp: 						; void farjmp(int eip, int cs);
+   465 00000270 FF 6C 24 04                     		JMP 	FAR [ESP+4] 	; JMP FAR指令，先从栈取4个字节放入EIP，再取2个字节放入CS
+   466 00000274 C3                              		RET
+   467 00000275                                 
+   468 00000275                                 _farcall:
+   469 00000275 FF 5C 24 04                     		CALL 	FAR [ESP+4]
+   470 00000279 C3                              		RET
+   471 0000027A                                 
+   472 0000027A                                 _asm_cons_putchar:
+   473 0000027A FB                              		STI
+   474 0000027B 60                              		PUSHAD
+   475 0000027C 6A 01                           		PUSH 	1
+   476 0000027E 25 000000FF                     		AND 	EAX, 0xff
+   477 00000283 50                              		PUSH 	EAX
+   478 00000284 FF 35 00000FEC                  		PUSH 	DWORD [0x0fec]
+   479 0000028A E8 [00000000]                   		CALL 	_cons_putchar
+   480 0000028F 83 C4 0C                        		ADD 	ESP, 12
+   481 00000292 61                              		POPAD
+   482 00000293 CF                              		IRETD
+   483 00000294                                 
+   484 00000294                                 ;_asm_hrb_api:
+   485 00000294 FB                              		STI
+   486 00000295 60                              		PUSHAD
+   487 00000296 60                              		PUSHAD
+   488 00000297 E8 [00000000]                   		CALL 	_hrb_api
+   489 0000029C 83 C4 20                        		ADD 	ESP, 32
+   490 0000029F 61                              		POPAD
+   491 000002A0 CF                              		IRETD
+   492 000002A1                                 
+   493 000002A1                                 _asm_hrb_api:
+   494 000002A1                                 		; 中断过程中，CPU中断着
+   495 000002A1                                 
+   496 000002A1                                 		; 将要从用户态转到系统态，想从系统态恢复回用户态，就要入栈应用程序的寄存器
+   497 000002A1 1E                              		PUSH 	DS
+   498 000002A2 06                              		PUSH 	ES
+   499 000002A3                                 		; 保存应用程序的寄存器
+   500 000002A3 60                              		PUSHAD
+   501 000002A4                                 
+   502 000002A4                                 		; 因为后面要读写系统段的数据，所以填入操作系统的数据段寄存器
+   503 000002A4 B8 00000008                     		MOV 	EAX, 1*8
+   504 000002A9 8E D8                           		MOV 	DS, AX
+   505 000002AB                                 		; 读取操作系统栈指针
+   506 000002AB 8B 0D 00000FE4                  		MOV 	ECX, [0x0fe4]
+   507 000002B1                                 
+   508 000002B1                                 		; 保存应用程序的栈指针
+   509 000002B1 83 C1 D8                        		ADD 	ECX, -40
+   510 000002B4 89 61 20                        		MOV 	[ECX+32], ESP
+   511 000002B7 8C 51 24                        		MOV 	[ECX+36], SS
+   512 000002BA                                 
+   513 000002BA                                 		; 把PUSHAD用户态的值入栈系统栈
+   514 000002BA 8B 14 24                        		MOV 	EDX, [ESP]
+   515 000002BD 8B 5C 24 04                     		MOV 	EBX, [ESP+4]
+   516 000002C1 89 11                           		MOV 	[ECX], EDX
+   517 000002C3 89 59 04                        		MOV 	[ECX+4], EBX
+   518 000002C6 8B 54 24 08                     		MOV 	EDX, [ESP+8]
+   519 000002CA 8B 5C 24 0C                     		MOV 	EBX, [ESP+12]
+   520 000002CE 89 51 08                        		MOV 	[ECX+8], EDX
+   521 000002D1 89 59 0C                        		MOV 	[ECX+12], EBX
+   522 000002D4 8B 54 24 10                     		MOV 	EDX, [ESP+16]
+   523 000002D8 8B 5C 24 14                     		MOV 	EBX, [ESP+20]
+   524 000002DC 89 51 10                        		MOV 	[ECX+16], EDX
+   525 000002DF 89 59 14                        		MOV 	[ECX+20], EBX
+   526 000002E2 8B 54 24 18                     		MOV 	EDX, [ESP+24]
+   527 000002E6 8B 5C 24 1C                     		MOV 	EBX, [ESP+28]
+   528 000002EA 89 51 18                        		MOV 	[ECX+24], EDX
+   529 000002ED 89 59 1C                        		MOV 	[ECX+28], EBX
+   530 000002F0                                 
+   531 000002F0                                 		; 填入操作系统的段寄存器
+   532 000002F0 8E C0                           		MOV 	ES, AX
+   533 000002F2 8E D0                           		MOV 	SS, AX
+   534 000002F4                                 		; 恢复操作系统的栈指针
+   535 000002F4 89 CC                           		MOV 	ESP, ECX
+   536 000002F6                                 
+   537 000002F6                                 		; 恢复CPU中断
+   538 000002F6 FB                              		STI
+   539 000002F7                                 
+   540 000002F7                                 		; 进入系统调用
+   541 000002F7 E8 [00000000]                   		CALL 	_hrb_api
+   542 000002FC                                 
+   543 000002FC                                 		; 从系统态返回用户态
+   544 000002FC                                 
+   545 000002FC                                 		; 读取应用程序的栈指针
+   546 000002FC 8B 4C 24 20                     		MOV 	ECX, [ESP+32]
+   547 00000300 8B 44 24 24                     		MOV 	EAX, [ESP+36]
+   548 00000304                                 
+   549 00000304                                 		; 恢复应用程序的栈指针
+   550 00000304 FA                              		CLI
+   551 00000305 8E D0                           		MOV 	SS, AX
+   552 00000307 89 CC                           		MOV 	ESP, ECX
+   553 00000309 61                              		POPAD
+   554 0000030A 07                              		POP 	ES
+   555 0000030B 1F                              		POP 	DS
+   556 0000030C                                 
+   557 0000030C                                 		;从中断返回指令(IRET)自动执行STI
+   558 0000030C CF                              		IRETD
+   559 0000030D                                 
+   560 0000030D                                 _start_app: 						; void start_app(int eip, int cs, int esp, int ds)
+   561 0000030D                                 		; 将要从系统态转到用户态，想从用户态恢复回系统态，就要入栈操作系统的寄存器
+   562 0000030D 60                              		PUSHAD
+   563 0000030E                                 
+   564 0000030E                                 		; 读取参数，用户态的代码段和数据段
+   565 0000030E 8B 44 24 24                     		MOV 	EAX, [ESP+32+4] 	; 应用程序EIP 		指令指针寄存器
+   566 00000312 8B 4C 24 28                     		MOV 	ECX, [ESP+32+8] 	; 应用程序CS 		代码段寄存器
+   567 00000316 8B 54 24 2C                     		MOV 	EDX, [ESP+32+12] 	; 应用程序ESP 		堆栈指针寄存器
+   568 0000031A 8B 5C 24 30                     		MOV 	EBX, [ESP+32+16] 	; 应用程序DS/SS 		数据段寄存器、堆栈段寄存器
+   569 0000031E 8B 6C 24 34                     		MOV 	EBP, [ESP+32+20] 	; tss.esp0的地址
+   570 00000322                                 
+   571 00000322                                 		; 保存操作系统的栈指针
+   572 00000322 89 25 00000FE4                  		MOV 	[0x0fe4], ESP 		; 操作系统ESP
+   573 00000328                                 
+   574 00000328                                 		; 填入应用程序的段寄存器
+   575 00000328 FA                              		CLI
+   576 00000329 8E C3                           		MOV 	ES, BX
+   577 0000032B 8E D3                           		MOV 	SS, BX
+   578 0000032D 8E DB                           		MOV 	DS, BX
+   579 0000032F 8E E3                           		MOV 	FS, BX
+   580 00000331 8E EB                           		MOV 	GS, BX
+   581 00000333                                 		; 填入应用程序的栈指针
+   582 00000333 89 D4                           		MOV 	ESP, EDX
+   583 00000335 FB                              		STI
+   584 00000336                                 
+   585 00000336                                 		; farcall应用程序，进入用户调用
+   586 00000336 51                              		PUSH 	ECX
+   587 00000337 50                              		PUSH 	EAX
+   588 00000338 FF 1C 24                        		CALL 	FAR [ESP]
+   589 0000033B                                 
+   590 0000033B                                 		; 从用户态返回系统态
+   591 0000033B                                 
+   592 0000033B                                 		; 填入操作系统的段寄存器
+   593 0000033B B8 00000008                     		MOV 	EAX, 1*8
+   594 00000340 FA                              		CLI
+   595 00000341 8E C0                           		MOV 	ES, AX
+   596 00000343 8E D0                           		MOV 	SS, AX
+   597 00000345 8E D8                           		MOV 	DS, AX
+   598 00000347 8E E0                           		MOV 	FS, AX
+   599 00000349 8E E8                           		MOV 	GS, AX
+   600 0000034B                                 		; 恢复操作系统的栈指针
+   601 0000034B 8B 25 00000FE4                  		MOV 	ESP, [0x0fe4]
+   602 00000351 FB                              		STI
+   603 00000352                                 
+   604 00000352                                 		; 出栈操作系统的寄存器
+   605 00000352 61                              		POPAD
+   606 00000353 C3                              		RET
