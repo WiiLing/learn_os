@@ -83,7 +83,7 @@ L11:
 	PUSH	2554208
 	CALL	_set_gatedesc
 	ADD	ESP,32
-	PUSH	142
+	PUSH	238
 	PUSH	16
 	PUSH	_asm_hrb_api
 	PUSH	2554368

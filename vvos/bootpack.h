@@ -38,7 +38,7 @@ extern void farcall(int eip, int cs);
 extern void load_tr(int tr);
 extern void asm_cons_putchar(void);
 extern void asm_hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int eax);
-extern void start_app(int eip, int cs, int esp, int ds);
+extern void start_app(int eip, int cs, int esp, int ds, int *tss_esp0);
 
 /*graphic.c*/
 void init_palette(void);

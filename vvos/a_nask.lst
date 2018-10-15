@@ -7,11 +7,16 @@
      7 00000000                                 [FILE "a_nask.nas"]
      8 00000000                                 
      9 00000000                                 		GLOBAL 	_api_putchar
-    10 00000000                                 
-    11                                          [SECTION .text]
-    12 00000000                                 
-    13 00000000                                 _api_putchar: 								;void api_putchar(int c);
-    14 00000000 BA 00000001                     		MOV 	EDX, 1
-    15 00000005 8A 44 24 04                     		MOV 	AL, [ESP+4]
-    16 00000009 CD 40                           		INT 	0x40
-    17 0000000B C3                              		RET
+    10 00000000                                 		GLOBAL 	_api_end
+    11 00000000                                 
+    12                                          [SECTION .text]
+    13 00000000                                 
+    14 00000000                                 _api_putchar: 								;void api_putchar(int c);
+    15 00000000 BA 00000001                     		MOV 	EDX, 1
+    16 00000005 8A 44 24 04                     		MOV 	AL, [ESP+4]
+    17 00000009 CD 40                           		INT 	0x40
+    18 0000000B C3                              		RET
+    19 0000000C                                 
+    20 0000000C                                 _api_end:
+    21 0000000C BA 00000004                     		MOV 	EDX, 4
+    22 00000011 CD 40                           		INT 	0x40

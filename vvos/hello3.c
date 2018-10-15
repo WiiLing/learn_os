@@ -1,4 +1,5 @@
 extern void api_putchar(int c);
+extern void api_end(void);
 
 void HariMain(void)
 {
@@ -7,5 +8,5 @@ void HariMain(void)
 	api_putchar('l');
 	api_putchar('l');
 	api_putchar('o');
-	return;
+	api_end();
 }

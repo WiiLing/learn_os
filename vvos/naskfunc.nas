@@ -97,7 +97,7 @@ _load_idtr:		; void load_idtr(int limit, int addr);
 		LIDT	[ESP+6]
 		RET
 
-;_asm_inthandler21:
+_asm_inthandler21:
 		PUSH 	ES
 		PUSH 	DS
 		PUSHAD
@@ -113,7 +113,7 @@ _load_idtr:		; void load_idtr(int limit, int addr);
 		POP 	ES
 		IRETD
 
-;_asm_inthandler2c:
+_asm_inthandler2c:
 		PUSH 	ES
 		PUSH 	DS
 		PUSHAD
@@ -129,7 +129,7 @@ _load_idtr:		; void load_idtr(int limit, int addr);
 		POP 	ES
 		IRETD
 
-;_asm_inthandler20:
+_asm_inthandler20:
 		PUSH 	ES
 		PUSH 	DS
 		PUSHAD
@@ -145,7 +145,27 @@ _load_idtr:		; void load_idtr(int limit, int addr);
 		POP 	ES
 		IRETD
 
-_asm_inthandler21:
+_asm_inthandler0d:
+		STI
+		PUSH 	ES
+		PUSH 	DS
+		PUSHAD
+		MOV 	EAX, ESP
+		PUSH 	EAX
+		MOV 	AX, SS
+		MOV 	DS, AX
+		MOV 	ES, AX
+		CALL 	_inthandler0d
+		CMP 	EAX, 0
+		JNE 	end_app
+		POP 	EAX
+		POPAD
+		POP 	DS
+		POP 	ES
+		ADD 	ESP, 4
+		IRETD
+
+;_asm_inthandler21:
 		PUSH 	ES
 		PUSH 	DS
 		PUSHAD
@@ -206,7 +226,7 @@ _asm_inthandler21:
 		POP 	ES
 		IRETD
 
-_asm_inthandler2c:
+;_asm_inthandler2c:
 		PUSH 	ES
 		PUSH 	DS
 		PUSHAD
@@ -267,7 +287,7 @@ _asm_inthandler2c:
 		POP 	ES
 		IRETD
 
-_asm_inthandler20:
+;_asm_inthandler20:
 		PUSH 	ES
 		PUSH 	DS
 		PUSHAD
@@ -328,7 +348,7 @@ _asm_inthandler20:
 		POP 	ES
 		IRETD
 
-_asm_inthandler0d:
+;_asm_inthandler0d:
 		STI
 		PUSH 	ES
 		PUSH 	DS
@@ -491,65 +511,30 @@ _asm_cons_putchar:
 		IRETD
 
 _asm_hrb_api:
-		; 中断过程中，CPU中断着
+		STI
 
 		; 将要从用户态转到系统态，想从系统态恢复回用户态，就要入栈应用程序的寄存器
 		PUSH 	DS
 		PUSH 	ES
 		; 保存应用程序的寄存器
 		PUSHAD
+		; 向hrb_api传值
+		PUSHAD
 
-		; 因为后面要读写系统段的数据，所以填入操作系统的数据段寄存器
-		MOV 	EAX, 1*8
-		MOV 	DS, AX
-		; 读取操作系统栈指针
-		MOV 	ECX, [0x0fe4]
-
-		; 保存应用程序的栈指针
-		ADD 	ECX, -40
-		MOV 	[ECX+32], ESP
-		MOV 	[ECX+36], SS
-
-		; 把PUSHAD用户态的值入栈系统栈
-		MOV 	EDX, [ESP]
-		MOV 	EBX, [ESP+4]
-		MOV 	[ECX], EDX
-		MOV 	[ECX+4], EBX
-		MOV 	EDX, [ESP+8]
-		MOV 	EBX, [ESP+12]
-		MOV 	[ECX+8], EDX
-		MOV 	[ECX+12], EBX
-		MOV 	EDX, [ESP+16]
-		MOV 	EBX, [ESP+20]
-		MOV 	[ECX+16], EDX
-		MOV 	[ECX+20], EBX
-		MOV 	EDX, [ESP+24]
-		MOV 	EBX, [ESP+28]
-		MOV 	[ECX+24], EDX
-		MOV 	[ECX+28], EBX
-
+		MOV 	AX, SS
 		; 填入操作系统的段寄存器
+		MOV 	DS, AX
 		MOV 	ES, AX
-		MOV 	SS, AX
-		; 恢复操作系统的栈指针
-		MOV 	ESP, ECX
-
-		; 恢复CPU中断
-		STI
 
 		; 进入系统调用
 		CALL 	_hrb_api
 
-		; 从系统态返回用户态
+		; 当EAX不为0时程序结束
+		CMP 	EAX, 0
+		JNE 	end_app
 
-		; 读取应用程序的栈指针
-		MOV 	ECX, [ESP+32]
-		MOV 	EAX, [ESP+36]
-
+		ADD 	ESP, 32
 		; 恢复应用程序的栈指针
-		CLI
-		MOV 	SS, AX
-		MOV 	ESP, ECX
 		POPAD
 		POP 	ES
 		POP 	DS
@@ -557,7 +542,14 @@ _asm_hrb_api:
 		;从中断返回指令(IRET)自动执行STI
 		IRETD
 
-_start_app: 						; void start_app(int eip, int cs, int esp, int ds)
+end_app:
+		; EAX为tss.esp0的地址
+		MOV 	ESP, [EAX]
+		POPAD
+		; 返回cmd_app
+		RET
+
+_start_app: 						; void start_app(int eip, int cs, int esp, int ds, int *tss_esp0)
 		; 将要从系统态转到用户态，想从用户态恢复回系统态，就要入栈操作系统的寄存器
 		PUSHAD
 
@@ -569,38 +561,24 @@ _start_app: 						; void start_app(int eip, int cs, int esp, int ds)
 		MOV 	EBP, [ESP+32+20] 	; tss.esp0的地址
 
 		; 保存操作系统的栈指针
-		MOV 	[0x0fe4], ESP 		; 操作系统ESP
+		MOV 	[EBP], ESP
+		MOV 	[EBP+4], SS
 
 		; 填入应用程序的段寄存器
-		CLI
 		MOV 	ES, BX
-		MOV 	SS, BX
 		MOV 	DS, BX
 		MOV 	FS, BX
 		MOV 	GS, BX
-		; 填入应用程序的栈指针
-		MOV 	ESP, EDX
-		STI
 
-		; farcall应用程序，进入用户调用
-		PUSH 	ECX
-		PUSH 	EAX
-		CALL 	FAR [ESP]
+		; 下面调整栈，以免用RETF跳转到应用程序
+		OR 		ECX, 3 				; 将应用程序的段号和3进行OR运算
+		OR 		EBX, 3 				; 将应用程序的段号和3进行OR运算
 
-		; 从用户态返回系统态
+		PUSH 	EBX 				; 应用程序的SS
+		PUSH 	EDX 				; 应用程序的ESP
+		PUSH 	ECX 				; 应用程序的CS
+		PUSH 	EAX 				; 应用程序的EIP
 
-		; 填入操作系统的段寄存器
-		MOV 	EAX, 1*8
-		CLI
-		MOV 	ES, AX
-		MOV 	SS, AX
-		MOV 	DS, AX
-		MOV 	FS, AX
-		MOV 	GS, AX
-		; 恢复操作系统的栈指针
-		MOV 	ESP, [0x0fe4]
-		STI
-
-		; 出栈操作系统的寄存器
-		POPAD
-		RET
+		; retf应用程序，进入用户调用
+		RETF
+		; 应用程序结束后不会回到这里

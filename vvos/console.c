@@ -2,71 +2,102 @@
 #include <string.h>
 #include "bootpack.h"
 
-void hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int eax)
+void console_task(struct SHEET *sht, unsigned int memtotal)
 {
-	int cs_base = *((int *)0x0fe8);
-	struct CONSOLE *cons = (struct CONSOLE *)*((int *)0x0fec);
-	if(edx == 1)
-	{
-		cons_putchar(cons, eax & 0xff, 1);
-	}
-	else if(edx == 2)
-	{
-		cons_putstr(cons, (char *)ebx + cs_base);
-	}
-	else if(edx == 3)
-	{
-		cons_putnstr(cons, (char *)ebx + cs_base, ecx);
-	}
-}
+	struct TIMER *timer;
+	struct TASK *task = task_now();
+	struct MEMMAN *memman = (struct MEMMAN *)MEMMAN_ADDR;
+	int i, fifobuf[128], *fat = (int *)memman_alloc_4k(memman, 4 * 2880);
+	struct CONSOLE cons;
+	char cmdline[30];
+	cons.sht = sht;
+	cons.cur_x = 8;
+	cons.cur_y = 28;
+	cons.cur_c = -1;
+	*((int *)0x0fec) = (int)&cons;
 
-void cons_putstr(struct CONSOLE *cons, char *s)
-{
-	for (; *s != 0; ++s)
-	{
-		cons_putchar(cons, *s, 1);
-	}
-	return;
-}
+	fifo32_init(&task->fifo, 128, fifobuf, task);
+	timer = timer_alloc();
+	timer_init(timer, &task->fifo, 1);
+	timer_settime(timer, 50);
+	file_readfat(fat, (unsigned char *)(ADR_DISKIMG + 0x000200));
 
-void cons_putnstr(struct CONSOLE *cons, char *s, int n)
-{
-	int i;
-	for (i = 0; i < n; ++i)
+	cons_putchar(&cons, '>', 1);
+	for (;;)
 	{
-		cons_putchar(cons, s[i], 1);
-	}
-	return;
-}
-
-void cons_newline(struct CONSOLE *cons)
-{
-	int x, y;
-	struct SHEET *sht = cons->sht;
-	if(cons->cur_y < 28 + 112)
-	{
-		cons->cur_y += 16;
-	}
-	else
-	{
-		for (y = 28; y < 28 + 112; ++y)
+		io_cli();
+		if(fifo32_status(&task->fifo) == 0)
 		{
-			for (x = 8; x < 8+ 240; ++x)
-			{
-				sht->buf[x + y * sht->bxsize] = sht->buf[x + (y + 16) * sht->bxsize];
-			}
+			task_sleep(task);
+			io_sti();
 		}
-		for (y = 28 + 112; y < 28 + 128; ++y)
+		else
 		{
-			for (x = 8; x < 8+ 240; ++x)
+			i = fifo32_get(&task->fifo);
+			io_sti();
+			if(i <= 1)
 			{
-				sht->buf[x + y * sht->bxsize] = COL8_000000;
+				if(i != 0)
+				{
+					timer_init(timer, &task->fifo, 0);
+					if(cons.cur_c >= 0)
+					{
+						cons.cur_c = COL8_FFFFFF;
+					}
+				}
+				else
+				{
+					timer_init(timer, &task->fifo, 1);
+					if(cons.cur_c >= 0)
+					{
+						cons.cur_c = COL8_000000;
+					}
+				}
+				timer_settime(timer, 50);
 			}
+			if(i == 2)
+			{
+				cons.cur_c =COL8_FFFFFF;
+			}
+			if(i == 3)
+			{
+				cons.cur_c = -1;
+				boxfill8(sht->buf, sht->bxsize, cons.cur_c, cons.cur_x, cons.cur_y, cons.cur_x + 8 - 1, cons.cur_y + 16 - 1);
+			}
+			if(256 <= i && i <= 511)
+			{
+				if(i == 8 + 256)
+				{
+					if(cons.cur_x > 16)
+					{
+						cons_putchar(&cons, ' ', 0);
+						cons.cur_x -= 8;
+					}
+				}
+				else if(i == 10 + 256)
+				{
+					cons_putchar(&cons, ' ', 0);
+					cmdline[cons.cur_x / 8 - 2] = 0;
+					cons_newline(&cons);
+					cons_runcmd(cmdline, &cons, fat, memtotal);
+					cons_putchar(&cons, '>', 1);
+				}
+				else
+				{
+					if(cons.cur_x < 240)
+					{
+						cmdline[cons.cur_x / 8 - 2] = i - 256;
+						cons_putchar(&cons, i - 256, 1);
+					}
+				}
+			}
+			if(cons.cur_c >= 0)
+			{
+				boxfill8(sht->buf, sht->bxsize, cons.cur_c, cons.cur_x, cons.cur_y, cons.cur_x + 8 - 1, cons.cur_y + 16 - 1);
+			}
+			sheet_refresh(sht, cons.cur_x, cons.cur_y, cons.cur_x + 8, cons.cur_y + 16);
 		}
-		sheet_refresh(sht, 8, 28, 8 + 240, 28 + 128);
 	}
-	cons->cur_x = 8;
-	return;
 }
 
 void cons_putchar(struct CONSOLE *cons, char chr, char move)
@@ -109,6 +140,55 @@ void cons_putchar(struct CONSOLE *cons, char chr, char move)
 				cons_newline(cons);
 			}
 		}
+	}
+	return;
+}
+
+void cons_newline(struct CONSOLE *cons)
+{
+	int x, y;
+	struct SHEET *sht = cons->sht;
+	if(cons->cur_y < 28 + 112)
+	{
+		cons->cur_y += 16;
+	}
+	else
+	{
+		for (y = 28; y < 28 + 112; ++y)
+		{
+			for (x = 8; x < 8+ 240; ++x)
+			{
+				sht->buf[x + y * sht->bxsize] = sht->buf[x + (y + 16) * sht->bxsize];
+			}
+		}
+		for (y = 28 + 112; y < 28 + 128; ++y)
+		{
+			for (x = 8; x < 8+ 240; ++x)
+			{
+				sht->buf[x + y * sht->bxsize] = COL8_000000;
+			}
+		}
+		sheet_refresh(sht, 8, 28, 8 + 240, 28 + 128);
+	}
+	cons->cur_x = 8;
+	return;
+}
+
+void cons_putstr(struct CONSOLE *cons, char *s)
+{
+	for (; *s != 0; ++s)
+	{
+		cons_putchar(cons, *s, 1);
+	}
+	return;
+}
+
+void cons_putnstr(struct CONSOLE *cons, char *s, int n)
+{
+	int i;
+	for (i = 0; i < n; ++i)
+	{
+		cons_putchar(cons, s[i], 1);
 	}
 	return;
 }
@@ -261,6 +341,7 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline)
 	struct SEGMENT_DESCRIPTOR *gdt = (struct SEGMENT_DESCRIPTOR *)ADR_GDT;
 	char *p, name[18], *q;
 	int i;
+	struct TASK *task = task_now();
 
 	for (i = 0; i < 13; ++i)
 	{
@@ -289,8 +370,8 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline)
 		q = (char *)memman_alloc_4k(memman, 64 * 1024);
 		*((int *)0x0fe8) = (int)p;
 		file_loadfile(finfo->clustno, finfo->size, p, fat, (char *)(ADR_DISKIMG + 0x003e00));
-		set_segmdesc(gdt + 1003, finfo->size - 1, (int)p, AR_CODE32_ER);
-		set_segmdesc(gdt + 1004, 64 * 1024 - 1, (int)q, AR_DATA32_RW);
+		set_segmdesc(gdt + 1003, finfo->size - 1, (int)p, AR_CODE32_ER + 0x60);
+		set_segmdesc(gdt + 1004, 64 * 1024 - 1, (int)q, AR_DATA32_RW + 0x60);
 		if(finfo->size >= 8 && strncmp(p + 4, "Hari", 4) == 0)
 		{
 			p[0] = 0xe8;
@@ -300,8 +381,8 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline)
 			p[4] = 0x00;
 			p[5] = 0xcb;
 		}
-		farcall(0, 1003 * 8);
-		start_app(0, 1003 * 8, 64 * 1024, 1004 * 8);
+		// farcall(0, 1003 * 8);
+		start_app(0, 1003 * 8, 64 * 1024, 1004 * 8, &(task->tss.esp0));
 		memman_free_4k(memman, (int)p, finfo->size);
 		memman_free_4k(memman, (int)q, 64 * 1024);
 		cons_newline(cons);
@@ -310,107 +391,33 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline)
 	return 0;
 }
 
-void console_task(struct SHEET *sht, unsigned int memtotal)
+void hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int eax)
 {
-	struct TIMER *timer;
+	int cs_base = *((int *)0x0fe8);
 	struct TASK *task = task_now();
-	struct MEMMAN *memman = (struct MEMMAN *)MEMMAN_ADDR;
-	int i, fifobuf[128], *fat = (int *)memman_alloc_4k(memman, 4 * 2880);
-	struct CONSOLE cons;
-	char cmdline[30];
-	cons.sht = sht;
-	cons.cur_x = 8;
-	cons.cur_y = 28;
-	cons.cur_c = -1;
-	*((int *)0x0fec) = (int)&cons;
-
-	fifo32_init(&task->fifo, 128, fifobuf, task);
-	timer = timer_alloc();
-	timer_init(timer, &task->fifo, 1);
-	timer_settime(timer, 50);
-	file_readfat(fat, (unsigned char *)(ADR_DISKIMG + 0x000200));
-
-	cons_putchar(&cons, '>', 1);
-	for (;;)
+	struct CONSOLE *cons = (struct CONSOLE *)*((int *)0x0fec);
+	if(edx == 1)
 	{
-		io_cli();
-		if(fifo32_status(&task->fifo) == 0)
-		{
-			task_sleep(task);
-			io_sti();
-		}
-		else
-		{
-			i = fifo32_get(&task->fifo);
-			io_sti();
-			if(i <= 1)
-			{
-				if(i != 0)
-				{
-					timer_init(timer, &task->fifo, 0);
-					if(cons.cur_c >= 0)
-					{
-						cons.cur_c = COL8_FFFFFF;
-					}
-				}
-				else
-				{
-					timer_init(timer, &task->fifo, 1);
-					if(cons.cur_c >= 0)
-					{
-						cons.cur_c = COL8_000000;
-					}
-				}
-				timer_settime(timer, 50);
-			}
-			if(i == 2)
-			{
-				cons.cur_c =COL8_FFFFFF;
-			}
-			if(i == 3)
-			{
-				cons.cur_c = -1;
-				boxfill8(sht->buf, sht->bxsize, cons.cur_c, cons.cur_x, cons.cur_y, cons.cur_x + 8 - 1, cons.cur_y + 16 - 1);
-			}
-			if(256 <= i && i <= 511)
-			{
-				if(i == 8 + 256)
-				{
-					if(cons.cur_x > 16)
-					{
-						cons_putchar(&cons, ' ', 0);
-						cons.cur_x -= 8;
-					}
-				}
-				else if(i == 10 + 256)
-				{
-					cons_putchar(&cons, ' ', 0);
-					cmdline[cons.cur_x / 8 - 2] = 0;
-					cons_newline(&cons);
-					cons_runcmd(cmdline, &cons, fat, memtotal);
-					cons_putchar(&cons, '>', 1);
-				}
-				else
-				{
-					if(cons.cur_x < 240)
-					{
-						cmdline[cons.cur_x / 8 - 2] = i - 256;
-						cons_putchar(&cons, i - 256, 1);
-					}
-				}
-			}
-			if(cons.cur_c >= 0)
-			{
-				boxfill8(sht->buf, sht->bxsize, cons.cur_c, cons.cur_x, cons.cur_y, cons.cur_x + 8 - 1, cons.cur_y + 16 - 1);
-			}
-			sheet_refresh(sht, cons.cur_x, cons.cur_y, cons.cur_x + 8, cons.cur_y + 16);
-		}
+		cons_putchar(cons, eax & 0xff, 1);
+	}
+	else if(edx == 2)
+	{
+		cons_putstr(cons, (char *)ebx + cs_base);
+	}
+	else if(edx == 3)
+	{
+		cons_putnstr(cons, (char *)ebx + cs_base, ecx);
+	}
+	else if(edx == 4)
+	{
+		return &(task->tss.esp0);
 	}
 }
 
 int inthandler0d(int *esp)
 {
 	struct CONSOLE *cons = (struct CONSOLE *)*((int *)0x0fec);
+	struct TASK *task = task_now();
 	cons_putstr(cons, "\nINT 0D :\n General Protected Exception.\n");
-	return 1;
+	return &(task->tss.esp0);
 }
