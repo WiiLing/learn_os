@@ -26,6 +26,7 @@ extern void load_gdtr(int limit, int addr); 		/*set gdtr*/
 extern void load_idtr(int limit, int addr); 		/*set idtr*/
 extern int load_cr0(void);
 extern void store_cr0(int cr0);
+extern void asm_inthandler0c(void);
 extern void asm_inthandler0d(void);
 extern void asm_inthandler20(void);
 extern void asm_inthandler21(void);
@@ -39,6 +40,7 @@ extern void load_tr(int tr);
 extern void asm_cons_putchar(void);
 extern void asm_hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int eax);
 extern void start_app(int eip, int cs, int esp, int ds, int *tss_esp0);
+extern void asm_end_app();
 
 /*graphic.c*/
 void init_palette(void);
@@ -90,7 +92,7 @@ void cmd_type(struct CONSOLE *cons, int *fat, char *cmdline);
 void cmd_hlt(struct CONSOLE *cons, int *fat);
 int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline);
 void console_task(struct SHEET *sht_cons, unsigned int memtotal);
-void hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int eax);
+int *hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int eax);
 int inthandler0d(int *esp);
 
 /*dsctbl.c*/

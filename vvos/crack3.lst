@@ -1,0 +1,17 @@
+     1 00000000                                 ; crack3.nas
+     2 00000000                                 ; tab=4
+     3 00000000                                 
+     4 00000000                                 [INSTRSET "i486p"]
+     5 00000000                                 [BITS 32]
+     6 00000000                                 		; io_out8(PIT_CTRL, 0x34);
+     7 00000000 B0 34                           		MOV 	AL, 0x34
+     8 00000002 E6 43                           		OUT 	0x43, AL
+     9 00000004                                 		; io_out8(PIT_CNT0, 0xff);
+    10 00000004 B0 FF                           		MOV 	AL, 0xff
+    11 00000006 E6 40                           		OUT 	0x40, AL
+    12 00000008                                 		; io_out8(PIT_CNT0, 0xff);
+    13 00000008 B0 FF                           		MOV 	AL, 0xff
+    14 0000000A E6 40                           		OUT 	0x40, AL
+    15 0000000C                                 
+    16 0000000C BA 00000004                     		MOV 	EDX, 4
+    17 00000011 CD 40                           		INT 	0x40

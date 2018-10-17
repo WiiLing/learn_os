@@ -20,6 +20,7 @@ void HariMain(void)
 	int cursor_x, cursor_c;
 	struct TASK *task_a, *task_b[3], *task_cons;
 	int i, mx, my, keyboard, count = 0, key_to = 0, key_shift = 0, key_leds = (binfo->leds >> 4) & 7, keycmd_wait = -1;
+	struct CONSOLE *cons;
 
 	static char keytable0[0x80] = {
 		0,		0,		'1',	'2',	'3',	'4',	'5',	'6',	'7',	'8',	'9',	'0',	'-',	'^',	0,		0,
@@ -240,6 +241,17 @@ void HariMain(void)
 						fifo32_put(&task_cons->fifo, s[0] + 256);
 					}
 				}
+				/*Shift+F1*/
+				if(i == 256 + 0x3b && key_shift != 0 && task_cons->tss.ss0 != 0)
+				{
+					cons = (struct CONSOLE *)(*((int *)0x0fec));
+					cons_putstr(cons, "关闭程序");
+					io_cli();
+					task_cons->tss.eax = (int)&(task_cons->tss.esp0);
+					task_cons->tss.eip = (int)asm_end_app;
+					io_sti();
+				}
+				/*回车键*/
 				if(keyboard == 256 + 0x1c)
 				{
 					if(key_to != 0)

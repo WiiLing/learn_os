@@ -391,7 +391,7 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline)
 	return 0;
 }
 
-void hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int eax)
+int *hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int eax)
 {
 	int cs_base = *((int *)0x0fe8);
 	struct TASK *task = task_now();
@@ -412,12 +412,51 @@ void hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int 
 	{
 		return &(task->tss.esp0);
 	}
+	// else if(edx == 1000000)
+	// {
+	// 	*((char *)0x00102600) = 0;
+	// }
+	return 0;
 }
+
+/*
+	在这个系统中，当CPU产生异常时其他寄存器的值为：
+	esp[0]	: EDI 		esp[0~7]为_asm_inthandler中PUSHAD的结果
+	esp[1]	: ESI
+	esp[2]	: EBP
+	esp[3]	: 
+	esp[4]	: EBX
+	esp[5]	: EDX
+	esp[6]	: ECX
+	esp[7]	: EAX
+	esp[8]	: DS 		esp[8~9]为_asm_inthandler中PUSH的结果
+	esp[9]	: ES
+	esp[10] : 			错误编号(基本上是0，显示出来也没什么意思)
+	esp[11] : EIP 		esp[10~15]为异常产生时CPU自动PUSH的结果
+	esp[12] : CS
+	esp[13] : EFLAGS
+	esp[14] : ESP 		应用程序的ESP
+	esp[15] : SS 		应用程序的SS
+*/
 
 int inthandler0d(int *esp)
 {
 	struct CONSOLE *cons = (struct CONSOLE *)*((int *)0x0fec);
 	struct TASK *task = task_now();
+	char s[30];
 	cons_putstr(cons, "\nINT 0D :\n General Protected Exception.\n");
+	sprintf(s, "EIP=%08X\n", esp[11]);
+	cons_putstr(cons, s);
+	return &(task->tss.esp0);
+}
+
+int inthandler0c(int *esp)
+{
+	struct CONSOLE *cons = (struct CONSOLE *)*((int *)0x0fec);
+	struct TASK *task = task_now();
+	char s[30];
+	cons_putstr(cons, "\nINT 0D :\n Stack Exception.\n");
+	sprintf(s, "EIP=%08X\n", esp[11]);
+	cons_putstr(cons, s);
 	return &(task->tss.esp0);
 }
