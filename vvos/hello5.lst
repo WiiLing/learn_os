@@ -1,0 +1,21 @@
+     1 00000000                                 ; hello5.nas
+     2 00000000                                 ; tab=4
+     3 00000000                                 
+     4 00000000                                 [FORMAT "WCOFF"]
+     5 00000000                                 [INSTRSET "i486p"]
+     6 00000000                                 [BITS 32]
+     7 00000000                                 [FILE "hello5.nas"]
+     8 00000000                                 
+     9 00000000                                 		GLOBAL 	_HariMain
+    10 00000000                                 
+    11                                          [SECTION .tExt]
+    12 00000000                                 _HariMain:
+    13 00000000 BA 00000002                     		MOV 	EDX, 2
+    14 00000005 BB [00000000]                   		MOV 	EBX, msg
+    15 0000000A CD 40                           		INT 	0x40
+    16 0000000C BA 00000004                     		MOV 	EDX, 4
+    17 00000011 CD 40                           		INT 	0x40
+    18 00000013                                 
+    19                                          [SECTION .data]
+    20 00000000                                 msg:
+    21 00000000 68 65 6C 6C 6F 2C 20 77 6F 72   		DB 		"hello, world", 0x0a, 0       0000000A 6C 64 0A 00 

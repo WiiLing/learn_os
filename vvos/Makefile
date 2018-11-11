@@ -85,6 +85,36 @@ hello3.bim:hello3.obj a_nask.obj Makefile
 hello3.hrb:hello3.bim Makefile
 	$(BIM2HRB) hello3.bim hello3.hrb 0
 
+hello4.bim:hello4.obj a_nask.obj Makefile
+	$(OBJ2BIM) @$(RULEFILE) out:hello4.bim stack:1k map:hello4.map hello4.obj a_nask.obj
+
+hello4.hrb:hello4.bim Makefile
+	$(BIM2HRB) hello4.bim hello4.hrb 0
+
+hello5.bim:hello5.obj Makefile
+	$(OBJ2BIM) @$(RULEFILE) out:hello5.bim stack:1k map:hello5.map hello5.obj
+
+hello5.hrb:hello5.bim Makefile
+	$(BIM2HRB) hello5.bim hello5.hrb 0
+
+winhello.bim:winhello.obj a_nask.obj Makefile
+	$(OBJ2BIM) @$(RULEFILE) out:winhello.bim stack:1k map:winhello.map winhello.obj a_nask.obj
+
+winhello.hrb:winhello.bim Makefile
+	$(BIM2HRB) winhello.bim winhello.hrb 0
+
+winhello2.bim:winhello2.obj a_nask.obj Makefile
+	$(OBJ2BIM) @$(RULEFILE) out:winhello2.bim stack:1k map:winhello2.map winhello2.obj a_nask.obj
+
+winhelo2.hrb:winhello2.bim Makefile
+	$(BIM2HRB) winhello2.bim winhelo2.hrb 0
+
+winhelo3.bim:winhelo3.obj a_nask.obj Makefile
+	$(OBJ2BIM) @$(RULEFILE) out:winhelo3.bim stack:1k map:winhelo3.map winhelo3.obj a_nask.obj
+
+winhelo3.hrb:winhelo3.bim Makefile
+	$(BIM2HRB) winhelo3.bim winhelo3.hrb 40k
+
 crack1.bim:crack1.obj a_nask.obj Makefile
 	$(OBJ2BIM) @$(RULEFILE) out:crack1.bim map:crack1.map crack1.obj a_nask.obj
 
@@ -118,7 +148,33 @@ bug2.bim:bug2.obj a_nask.obj Makefile
 bug2.hrb:bug2.bim Makefile
 	$(BIM2HRB) bug2.bim bug2.hrb 0
 
-haribote.img : ipl.bin haribote.sys ipl.nas make.bat hello.hrb hello2.hrb a.hrb hello3.hrb crack1.hrb crack2.hrb crack3.hrb crack4.hrb crack5.hrb crack6.hrb bug1.hrb bug2.hrb Makefile
+bug3.bim:bug3.obj a_nask.obj Makefile
+	$(OBJ2BIM) @$(RULEFILE) out:bug3.bim map:bug3.map bug3.obj a_nask.obj
+
+bug3.hrb:bug3.bim Makefile
+	$(BIM2HRB) bug3.bim bug3.hrb 0
+
+star1.bim:star1.obj a_nask.obj Makefile
+	$(OBJ2BIM) @$(RULEFILE) out:star1.bim stack:1k map:star1.map star1.obj a_nask.obj
+
+star1.hrb:star1.bim Makefile
+	$(BIM2HRB) star1.bim star1.hrb 47k
+
+stars.bim:stars.obj a_nask.obj Makefile
+	$(OBJ2BIM) @$(RULEFILE) out:stars.bim stack:1k map:stars.map stars.obj a_nask.obj
+
+stars.hrb:stars.bim Makefile
+	$(BIM2HRB) stars.bim stars.hrb 47k
+
+stars2.bim:stars2.obj a_nask.obj Makefile
+	$(OBJ2BIM) @$(RULEFILE) out:stars2.bim stack:1k map:stars2.map stars2.obj a_nask.obj
+
+stars2.hrb:stars2.bim Makefile
+	$(BIM2HRB) stars2.bim stars2.hrb 47k
+
+haribote.img : ipl.bin haribote.sys ipl.nas make.bat hello.hrb hello2.hrb a.hrb hello3.hrb hello4.hrb \
+				hello5.hrb winhello.hrb winhelo2.hrb winhelo3.hrb crack1.hrb crack2.hrb crack3.hrb crack4.hrb crack5.hrb crack6.hrb \
+				bug1.hrb bug2.hrb bug3.hrb star1.hrb stars.hrb stars2.hrb Makefile
 	$(EDIMG) imgin:..\z_tools\fdimg0at.tek wbinimg \
 		src:ipl.bin len:512 from:0 to:0 \
 		copy from:haribote.sys to:@: \
@@ -128,6 +184,11 @@ haribote.img : ipl.bin haribote.sys ipl.nas make.bat hello.hrb hello2.hrb a.hrb 
 		copy from:hello2.hrb to:@: \
 		copy from:a.hrb to:@: \
 		copy from:hello3.hrb to:@: \
+		copy from:hello4.hrb to:@: \
+		copy from:hello5.hrb to:@: \
+		copy from:winhello.hrb to:@: \
+		copy from:winhelo2.hrb to:@: \
+		copy from:winhelo3.hrb to:@: \
 		copy from:crack1.hrb to:@: \
 		copy from:crack2.hrb to:@: \
 		copy from:crack3.hrb to:@: \
@@ -136,6 +197,10 @@ haribote.img : ipl.bin haribote.sys ipl.nas make.bat hello.hrb hello2.hrb a.hrb 
 		copy from:crack6.hrb to:@: \
 		copy from:bug1.hrb to:@: \
 		copy from:bug2.hrb to:@: \
+		copy from:bug3.hrb to:@: \
+		copy from:star1.hrb to:@: \
+		copy from:stars.hrb to:@: \
+		copy from:stars2.hrb to:@: \
 		imgout:haribote.img
 
 %.gas: %.c bootpack.h Makefile

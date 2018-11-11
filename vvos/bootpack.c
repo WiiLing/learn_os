@@ -75,6 +75,7 @@ void HariMain(void)
 	/*初始化调色板*/
 	init_palette();
 	shtctl = shtctl_init(memman, binfo->vram, binfo->scrnx, binfo->scrny);
+	*((int *)0x0fe4) = (int)shtctl;
 
 	/*sht_back*/
 	sht_back = sheet_alloc(shtctl);
@@ -242,10 +243,10 @@ void HariMain(void)
 					}
 				}
 				/*Shift+F1*/
-				if(i == 256 + 0x3b && key_shift != 0 && task_cons->tss.ss0 != 0)
+				if(keyboard == 256 + 0x3b && key_shift != 0 && task_cons->tss.ss0 != 0)
 				{
-					cons = (struct CONSOLE *)(*((int *)0x0fec));
-					cons_putstr(cons, "关闭程序");
+					cons = (struct CONSOLE *)*((int *)0x0fec);
+					cons_putstr(cons, "\nBreak(key) :\n");
 					io_cli();
 					task_cons->tss.eax = (int)&(task_cons->tss.esp0);
 					task_cons->tss.eip = (int)asm_end_app;
