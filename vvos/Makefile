@@ -172,9 +172,15 @@ stars2.bim:stars2.obj a_nask.obj Makefile
 stars2.hrb:stars2.bim Makefile
 	$(BIM2HRB) stars2.bim stars2.hrb 47k
 
+lines.bim:lines.obj a_nask.obj Makefile
+	$(OBJ2BIM) @$(RULEFILE) out:lines.bim stack:1k map:lines.map lines.obj a_nask.obj
+
+lines.hrb:lines.bim Makefile
+	$(BIM2HRB) lines.bim lines.hrb 47k
+
 haribote.img : ipl.bin haribote.sys ipl.nas make.bat hello.hrb hello2.hrb a.hrb hello3.hrb hello4.hrb \
 				hello5.hrb winhello.hrb winhelo2.hrb winhelo3.hrb crack1.hrb crack2.hrb crack3.hrb crack4.hrb crack5.hrb crack6.hrb \
-				bug1.hrb bug2.hrb bug3.hrb star1.hrb stars.hrb stars2.hrb Makefile
+				bug1.hrb bug2.hrb bug3.hrb star1.hrb stars.hrb stars2.hrb lines.hrb Makefile
 	$(EDIMG) imgin:..\z_tools\fdimg0at.tek wbinimg \
 		src:ipl.bin len:512 from:0 to:0 \
 		copy from:haribote.sys to:@: \
@@ -201,6 +207,7 @@ haribote.img : ipl.bin haribote.sys ipl.nas make.bat hello.hrb hello2.hrb a.hrb 
 		copy from:star1.hrb to:@: \
 		copy from:stars.hrb to:@: \
 		copy from:stars2.hrb to:@: \
+		copy from:lines.hrb to:@: \
 		imgout:haribote.img
 
 %.gas: %.c bootpack.h Makefile

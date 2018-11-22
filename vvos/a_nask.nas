@@ -17,6 +17,8 @@
 		GLOBAL 	_api_free
 		GLOBAL 	_api_point
 		GLOBAL 	_api_refreshwin
+		GLOBAL 	_api_linewin
+		GLOBAL 	_api_closewin
 
 [SECTION .text]
 
@@ -152,4 +154,35 @@ _api_refreshwin: ; void api_refreshwin(int win, int x0, int y0, int x1, int y1)
 		POP 	EBX
 		POP 	ESI
 		POP 	EDI
+		RET
+
+_api_linewin: ; void api_linewin(int win, int x0, int y0, int x1, int y1, int col)
+		PUSH 	EDI
+		PUSH 	ESI
+		PUSH 	EBP
+		PUSH 	EBX
+
+		MOV 	EDX, 13
+		MOV 	EBX, [ESP+16+4]
+		MOV 	EAX, [ESP+16+8]
+		MOV 	ECX, [ESP+16+12]
+		MOV 	ESI, [ESP+16+16]
+		MOV 	EDI, [ESP+16+20]
+		MOV 	EBP, [ESP+16+24]
+		INT 	0x40
+
+		POP 	EBX
+		POP 	EBP
+		POP 	ESI
+		POP 	EDI
+		RET
+
+_api_closewin: ; void api_closewin(int win)
+		PUSH 	EBX
+
+		MOV 	EDX, 14
+		MOV 	EBX, [ESP+4+4]
+		INT 	0x40
+
+		POP 	EBX
 		RET
