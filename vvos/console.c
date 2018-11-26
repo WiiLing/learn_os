@@ -4,7 +4,6 @@
 
 void console_task(struct SHEET *sht, unsigned int memtotal)
 {
-	struct TIMER *timer;
 	struct TASK *task = task_now();
 	struct MEMMAN *memman = (struct MEMMAN *)MEMMAN_ADDR;
 	int i, fifobuf[128], *fat = (int *)memman_alloc_4k(memman, 4 * 2880);
@@ -17,9 +16,9 @@ void console_task(struct SHEET *sht, unsigned int memtotal)
 	*((int *)0x0fec) = (int)&cons;
 
 	fifo32_init(&task->fifo, 128, fifobuf, task);
-	timer = timer_alloc();
-	timer_init(timer, &task->fifo, 1);
-	timer_settime(timer, 50);
+	cons.timer = timer_alloc();
+	timer_init(cons.timer, &task->fifo, 1);
+	timer_settime(cons.timer, 50);
 	file_readfat(fat, (unsigned char *)(ADR_DISKIMG + 0x000200));
 
 	cons_putchar(&cons, '>', 1);
@@ -39,7 +38,7 @@ void console_task(struct SHEET *sht, unsigned int memtotal)
 			{
 				if(i != 0)
 				{
-					timer_init(timer, &task->fifo, 0);
+					timer_init(cons.timer, &task->fifo, 0);
 					if(cons.cur_c >= 0)
 					{
 						cons.cur_c = COL8_FFFFFF;
@@ -47,13 +46,13 @@ void console_task(struct SHEET *sht, unsigned int memtotal)
 				}
 				else
 				{
-					timer_init(timer, &task->fifo, 1);
+					timer_init(cons.timer, &task->fifo, 1);
 					if(cons.cur_c >= 0)
 					{
 						cons.cur_c = COL8_000000;
 					}
 				}
-				timer_settime(timer, 50);
+				timer_settime(cons.timer, 50);
 			}
 			if(i == 2)
 			{
@@ -343,6 +342,8 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline)
 	int i;
 	struct TASK *task = task_now();
 	int segsiz, datsiz, esp, dathrb;
+	struct SHTCTL *shtctl;
+	struct SHEET *sht;
 
 	for (i = 0; i < 13; ++i)
 	{
@@ -384,6 +385,15 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline)
 				q[esp + i] = p[dathrb + i];
 			}
 			start_app(0x1b, 1003 * 8, esp, 1004 * 8, &(task->tss.esp0));
+			shtctl = (struct SHTCTL *)*((int *)0x0fe4);
+			for(i = 0; i < MAX_SHEETS; ++i)
+			{
+				sht = &(shtctl->sheet0[i]);
+				if(sht->flags != 0 && sht->task == task)
+				{
+					sheet_free(sht);
+				}
+			}
 			memman_free_4k(memman, (int)q, segsiz);
 		}
 		else
@@ -473,6 +483,7 @@ int *hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int 
 	struct SHTCTL *shtctl = (struct SHTCTL *)*((int *)0x0fe4);
 	struct SHEET *sht;
 	int *reg = &eax + 1;
+	int i;
 	/* 强行改写通过_asm_hrb_api第一个PUSHAD保存的值
 		reg[0]:EDI, 	reg[1]:ESI, 	reg[2]:EBP, 	reg[3]:ESP
 		reg[4]:EBX, 	reg[5]:EDX, 	reg[6]:ECX, 	reg[7]:EAX
@@ -497,6 +508,7 @@ int *hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int 
 	else if(edx == 5)
 	{
 		sht = sheet_alloc(shtctl);
+		sht->task = task;
 		sheet_setbuf(sht, (char *)ebx + ds_base, esi, edi, eax);
 		make_window8((char *)ebx + ds_base, esi, edi, (char *)ecx + ds_base, 0);
 		sheet_slide(sht, 100, 50);
@@ -563,6 +575,46 @@ int *hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int 
 	else if(edx == 14)
 	{
 		sheet_free((struct SHEET *)ebx);
+	}
+	else if(edx == 15)
+	{
+		for(;;)
+		{
+			io_cli();
+			if(fifo32_status(&task->fifo) == 0)
+			{
+				if(eax != 0)
+				{
+					task_sleep(task);
+				}
+				else
+				{
+					io_sti();
+					reg[7] = -1;
+					return 0;
+				}
+			}
+			i = fifo32_get(&task->fifo);
+			io_sti();
+			if(i <= 1)
+			{
+				timer_init(cons->timer, &task->fifo, 1);
+				timer_settime(cons->timer, 50);
+			}
+			if(i == 2)
+			{
+				cons->cur_c = COL8_FFFFFF;
+			}
+			if(i == 3)
+			{
+				cons->cur_c = -1;
+			}
+			if(256 <= i && i <= 511)
+			{
+				reg[7] = i - 256;
+				return 0;
+			}
+		}
 	}
 	// else if(edx == 1000000)
 	// {

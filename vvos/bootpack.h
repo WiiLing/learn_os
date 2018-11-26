@@ -79,6 +79,7 @@ struct CONSOLE
 {
 	struct SHEET *sht;
 	int cur_x, cur_y, cur_c;
+	struct TIMER *timer;
 };
 void cons_newline(struct CONSOLE *cons);
 void cons_putchar(struct CONSOLE *cons, char chr, char move);
@@ -222,6 +223,7 @@ struct SHEET
 	unsigned char *buf;
 	int bxsize, bysize, vx0, vy0, col_inv, height, flags; 	// height表示索引，不是个数，注意边界问题
 	struct SHTCTL *ctl;
+	struct TASK *task;
 };
 struct SHTCTL
 {
